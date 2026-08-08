@@ -678,28 +678,36 @@ a:hover {
   }
 }
 
-[data-reveal] {
+/* The starting (hidden) states are gated behind .js-motion, which the inline head
+   script adds. If that script never runs, nothing is ever hidden. */
+/* No will-change here on purpose. There are 40+ of these per page, and promoting
+   every one to its own compositor layer for the life of the page exhausts GPU
+   memory and makes elements drop out of the paint entirely. */
+.js-motion [data-reveal] {
   opacity: 0;
-  will-change: opacity, transform;
 }
 [data-reveal].is-in {
   animation: eway-rise 0.7s cubic-bezier(0.22, 0.7, 0.25, 1) forwards;
 }
-[data-tile] {
+.js-motion [data-tile] {
   opacity: 0;
 }
 [data-tile].is-in {
   animation: eway-rise 0.5s cubic-bezier(0.22, 0.7, 0.25, 1) forwards;
 }
 [data-rule] {
-  transform: scaleX(0);
   transform-origin: left center;
+}
+.js-motion [data-rule] {
+  transform: scaleX(0);
 }
 [data-rule].is-in {
   animation: eway-wipe 0.9s cubic-bezier(0.22, 0.7, 0.25, 1) forwards;
 }
 [data-word] {
   display: inline-block;
+}
+.js-motion [data-word] {
   transform: translateY(105%);
 }
 [data-word].is-in {
@@ -736,7 +744,6 @@ a:hover {
 .hero-parallax {
   position: absolute;
   inset: -6% 0;
-  will-change: transform;
 }
 .hero-scanline {
   position: absolute;
@@ -766,7 +773,6 @@ a:hover {
 .work-band .band-parallax {
   position: absolute;
   inset: -8% 0;
-  will-change: transform;
 }
 .work-band .band-scrim {
   position: absolute;
