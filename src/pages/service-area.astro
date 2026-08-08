@@ -1,0 +1,59 @@
+---
+import Page from '../layouts/Page.astro';
+import PageIntro from '../components/PageIntro.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { PHONE, TEL_HREF, TOWNS } from '../data/site';
+
+const title = 'Service Area — Mobile European Auto Repair in South Jersey | Eway Auto Repairs';
+const description = `Mobile European car repair across Camden, Burlington and Gloucester counties: Cherry Hill, Marlton, Moorestown, Voorhees, Medford, Mount Laurel and more. We come to you. Call ${PHONE}.`;
+---
+
+<Page title={title} description={description} path="/service-area">
+  <PageIntro eyebrow="Service Area">
+    <Fragment slot="title">
+      South Jersey, <span class="accent">driveway to driveway</span>.
+    </Fragment>
+    <Fragment slot="intro">
+      Camden, Burlington, and Gloucester counties. Home or work, driveway or office lot —
+      diagnostics and most repairs happen wherever the car is.
+    </Fragment>
+  </PageIntro>
+
+  <section class="section-ruled">
+    <div class="section container">
+      <h2 data-reveal>Towns I cover</h2>
+      <p class="section-intro">
+        If your town isn't listed, call and ask — the list below is where I'm most often, not a
+        hard boundary.
+      </p>
+      <div class="town-row">
+        {TOWNS.map((t) => <span class="town-chip" data-reveal>{t}</span>)}
+      </div>
+
+      <div class="copy" style="margin-top:56px">
+        <p>
+          Being mobile isn't a compromise — for most of what European cars need, it's better.
+          Diagnostics, inspections, maintenance, brakes, and most repairs don't need a lift;
+          they need the right tools, the right software, and the right person. You skip the
+          drop-off, the shuttle, and the three days without a car.
+        </p>
+        <p>
+          For the jobs that genuinely need a shop environment, I'll tell you straight and help
+          you plan the right way to handle it. No job gets started in a driveway that shouldn't
+          be.
+        </p>
+      </div>
+
+      <div class="next-links">
+        <a class="chip-link" href="/services">What I do on site</a>
+        <a class="chip-link" href="/pre-purchase-inspection">PPIs at the seller's location</a>
+        <a class="chip-link" href="/contact">Check if I cover your town</a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Not sure if you're in range?"
+    sub={`Call ${PHONE} with your town — if I can't get to you, I'll tell you straight away.`}
+  />
+</Page>

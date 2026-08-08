@@ -1,0 +1,99 @@
+---
+import Page from '../../layouts/Page.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { PHONE } from '../../data/site';
+import { BRAND_PAGES } from '../../data/brands';
+import { serviceSchema, breadcrumbSchema } from '../../data/schema';
+
+export function getStaticPaths() {
+  return BRAND_PAGES.map((brand) => ({ params: { slug: brand.slug }, props: { brand } }));
+}
+
+const { brand } = Astro.props;
+const path = `/brands/${brand.slug}`;
+
+const schemas = [
+  serviceSchema(
+    `${brand.name} Repair and Service`,
+    `Mobile ${brand.name} diagnostics, maintenance and repair in South Jersey by an ASE Master Technician with 30+ years of experience.`,
+    path
+  ),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Brands', path: '/brands' },
+    { name: brand.name, path },
+  ]),
+];
+---
+
+<Page title={brand.metaTitle} description={brand.metaDescription} path={path} schemas={schemas}>
+  <PageIntro
+    eyebrow={`${brand.shortName} · South Jersey`}
+    crumbs={[
+      { name: 'Home', href: '/' },
+      { name: 'Brands', href: '/brands' },
+      { name: brand.name, href: path },
+    ]}
+  >
+    <Fragment slot="title">{brand.h1}</Fragment>
+    <Fragment slot="intro">{brand.intro}</Fragment>
+  </PageIntro>
+
+  <section class="section-ruled">
+    <div class="section container">
+      <div class="copy">
+        {brand.opening.map((p) => <p>{p}</p>)}
+      </div>
+
+      <h2 style="margin-top:56px" data-reveal>{brand.failuresHeading}</h2>
+      <p class="section-intro">
+        Not a scare list — a pattern list. These are the jobs that come up again and again on
+        this marque, and knowing them is most of the diagnosis.
+      </p>
+      <div class="failure-list">
+        {
+          brand.failures.map((f) => (
+            <div class="failure-item" data-reveal>
+              <h3>{f.title}</h3>
+              <p>{f.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section-alt">
+    <div class="section container">
+      <h2 data-reveal>{brand.name} services at your driveway</h2>
+      <ul class="check-list">
+        {brand.services.map((s) => <li data-reveal>{s}</li>)}
+      </ul>
+
+      <h2 style="margin-top:64px" data-reveal>Maintenance notes worth knowing</h2>
+      <div class="copy">
+        {brand.maintenance.map((p) => <p>{p}</p>)}
+      </div>
+
+      <h2 style="margin-top:64px" data-reveal>Why an independent specialist beats the dealer</h2>
+      <div class="copy">
+        {brand.independent.map((p) => <p>{p}</p>)}
+      </div>
+
+      <div class="next-links">
+        <a class="chip-link" href="/pre-purchase-inspection">
+          Buying a used {brand.shortName}? Get a PPI
+        </a>
+        <a class="chip-link" href="/services">All services</a>
+        <a class="chip-link" href="/brands">Other brands</a>
+        <a class="chip-link" href="/contact">Request a quote</a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title={`Have a ${brand.shortName} with a problem?`}
+    sub={`Call ${PHONE} with the year, model, and symptoms — odds are it's on the list above, and I'll tell you on the phone.`}
+  />
+</Page>

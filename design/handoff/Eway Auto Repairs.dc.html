@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<script src="./image-slot.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; background: #0A0A0A; }
+  body { font-family: Archivo, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  a { color: #FF6B00; text-decoration: none; }
+  a:hover { color: #FF8A33; }
+  @keyframes eway-rise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+  @keyframes eway-wipe { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  [data-reveal] { opacity: 0; will-change: opacity, transform; }
+  [data-reveal].is-in { animation: eway-rise 0.7s cubic-bezier(0.22,0.7,0.25,1) forwards; }
+  [data-rule] { transform-origin: left center; }
+  [data-rule].is-in { animation: eway-wipe 0.8s cubic-bezier(0.22,0.7,0.25,1) forwards; }
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal], [data-reveal].is-in, [data-rule], [data-rule].is-in { opacity: 1 !important; transform: none !important; animation: none !important; }
+    * { transition: none !important; }
+  }
+  @media (max-width: 940px) { [data-desktop-only] { display: none !important; } }
+  @media (min-width: 941px) { [data-mobile-only] { display: none !important; } }
+</style>
+</helmet>
+
+<div style="background:#0A0A0A;color:#F5F5F3;min-height:100vh;padding-bottom:72px">
+
+  <header style="position:sticky;top:0;z-index:50;background:rgba(10,10,10,0.72);backdrop-filter:blur(10px);border-bottom:1px solid #1F1F1F;transition:background .25s ease,box-shadow .25s ease">
+    <div style="max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+      <a href="#top" style="display:flex;flex-direction:column;gap:2px;color:#FF6B00">
+        <span style="font-size:17px;font-weight:800;letter-spacing:0.06em;line-height:1">EWAY AUTO REPAIRS</span>
+        <span data-desktop-only="" style="font-size:10px;font-weight:600;letter-spacing:0.24em;color:#7A7A7A">EUROPEAN SPECIALIST</span>
+      </a>
+      <nav data-desktop-only="" style="display:flex;align-items:center;gap:26px">
+        <a href="#services" style="font-size:14px;font-weight:500;color:#C9C9C7;transition:color .18s ease">Services</a>
+        <a href="#ppi" style="font-size:14px;font-weight:500;color:#C9C9C7;transition:color .18s ease">Pre-Purchase Inspection</a>
+        <a href="#brands" style="font-size:14px;font-weight:500;color:#C9C9C7;transition:color .18s ease">Brands</a>
+        <a href="#about" style="font-size:14px;font-weight:500;color:#C9C9C7;transition:color .18s ease">About</a>
+        <a href="#area" style="font-size:14px;font-weight:500;color:#C9C9C7;transition:color .18s ease">Service Area</a>
+        <a href="#contact" style="font-size:14px;font-weight:500;color:#C9C9C7;transition:color .18s ease">Contact</a>
+      </nav>
+      <a href="{{ telHref }}" style="flex:none;background:#EE6002;color:#0A0A0A;font-size:14px;font-weight:700;letter-spacing:0.01em;padding:11px 18px;border-radius:2px;transition:background .2s ease,transform .2s ease" style-hover="transform:translateY(-1px)" style-hover="background:#FF8A33">Call {{ phone }}</a>
+    </div>
+  </header>
+
+  <section id="top" style="position:relative;min-height:min(86vh,760px);display:flex;align-items:flex-end;overflow:hidden;border-bottom:1px solid #1F1F1F">
+    <div style="position:absolute;inset:0">
+      <image-slot id="eway-hero" shape="rect" fit="cover" placeholder="Drop a dark engine-bay or diagnostic-tool photo"></image-slot>
+    </div>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,0.72) 0%,rgba(10,10,10,0.82) 45%,rgba(10,10,10,0.97) 100%);pointer-events:none"></div>
+    <div style="position:relative;width:100%;max-width:1200px;margin:0 auto;padding:120px 20px 76px">
+      <div data-reveal="" style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.22em;color:#FF6B00;border:1px solid rgba(255,107,0,0.4);padding:6px 10px;margin-bottom:26px">MOBILE SERVICE · SOUTH JERSEY</div>
+      <h1 data-reveal="" style="margin:0;max-width:16ch;font-size:clamp(38px,7vw,74px);font-weight:800;line-height:1.02;letter-spacing:-0.03em;text-wrap:balance">European Auto Repair That <span style="color:#FF6B00">Comes to You</span></h1>
+      <p data-reveal="" style="margin:24px 0 0;max-width:56ch;font-size:clamp(16px,2.1vw,19px);line-height:1.6;color:#B8B8B4">30+ years of factory-level European experience, serving South Jersey. ASE Master Technician. Dealer capability without dealer pricing.</p>
+      <div data-reveal="" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:34px">
+        <a href="{{ telHref }}" style="background:#EE6002;color:#0A0A0A;font-size:16px;font-weight:700;padding:16px 26px;border-radius:2px;transition:background .2s ease,transform .2s ease" style-hover="background:#FF8A33">Call {{ phone }}</a>
+        <a href="#contact" style="border:1px solid #3A3A3A;color:#F5F5F3;font-size:16px;font-weight:600;padding:16px 26px;border-radius:2px;transition:border-color .2s ease,color .2s ease,transform .2s ease" style-hover="border-color:#FF6B00;color:#FF6B00">Request a Quote</a>
+      </div>
+    </div>
+  </section>
+
+  <section style="border-bottom:1px solid #1F1F1F;background:#0D0D0D">
+    <div style="max-width:1200px;margin:0 auto;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+      <div data-reveal="" style="padding:26px 24px 26px 0;font-size:14px;font-weight:600;letter-spacing:0.02em;color:#E6E6E3">30+ Years Experience</div>
+      <div data-reveal="" style="padding:26px 24px 26px 0;font-size:14px;font-weight:600;letter-spacing:0.02em;color:#E6E6E3">ASE Master Certified</div>
+      <div data-reveal="" style="padding:26px 24px 26px 0;font-size:14px;font-weight:600;letter-spacing:0.02em;color:#E6E6E3">Mobile — We Come to You</div>
+      <div data-reveal="" style="padding:26px 24px 26px 0;font-size:14px;font-weight:600;letter-spacing:0.02em;color:#E6E6E3">Written Estimates, Always</div>
+    </div>
+  </section>
+
+  <section id="brands" style="max-width:1200px;margin:0 auto;padding:clamp(64px,9vw,110px) 20px">
+    <h2 data-reveal="" style="margin:0;font-size:clamp(28px,4.4vw,44px);font-weight:700;letter-spacing:-0.02em;line-height:1.1">We only work on European cars.</h2>
+    <p style="margin:16px 0 0;max-width:52ch;font-size:16px;line-height:1.6;color:#8E8E8A">One set of platforms, one set of tools, one set of failure patterns. That focus is why the diagnosis is right the first time.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1px;background:#1F1F1F;border:1px solid #1F1F1F;margin-top:40px">
+      <sc-for list="{{ brands }}" as="brand" hint-placeholder-count="12">
+        <div data-reveal="" style="background:#0F0F0F;padding:26px 16px;text-align:center;font-size:14px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#C9C9C7;transition:color .2s ease,background .2s ease" style-hover="color:#FF6B00;background:#141414">{{ brand }}</div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="services" style="border-top:1px solid #1F1F1F;background:#0C0C0C">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,9vw,110px) 20px">
+      <div data-reveal="" style="font-size:11px;font-weight:700;letter-spacing:0.22em;color:#FF6B00;margin-bottom:16px">SERVICES</div>
+      <h2 data-reveal="" style="margin:0 0 44px;font-size:clamp(28px,4.4vw,44px);font-weight:700;letter-spacing:-0.02em">What I do in your driveway.</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
+        <sc-for list="{{ services }}" as="s" hint-placeholder-count="6">
+          <div data-reveal="" style="background:#131313;border:1px solid #222;border-top:2px solid #FF6B00;padding:30px 26px 34px;transition:background .22s ease,border-color .22s ease,transform .22s ease" style-hover="border-color:#333;border-top-color:#FF8A33;background:#161616;transform:translateY(-3px)">
+            <div id="{{ s.anchor }}" style="font-size:12px;font-weight:700;letter-spacing:0.16em;color:#4A4A48;margin-bottom:18px">{{ s.num }}</div>
+            <h3 style="margin:0 0 12px;font-size:21px;font-weight:700;letter-spacing:-0.01em">{{ s.title }}</h3>
+            <p style="margin:0;font-size:15px;line-height:1.62;color:#96968F">{{ s.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="border-top:1px solid #1F1F1F">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,9vw,110px) 20px">
+      <div data-reveal="" style="font-size:11px;font-weight:700;letter-spacing:0.22em;color:#FF6B00;margin-bottom:16px">HOW IT WORKS</div>
+      <h2 data-reveal="" style="margin:0 0 48px;font-size:clamp(28px,4.4vw,44px);font-weight:700;letter-spacing:-0.02em">Four steps, no surprises.</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:36px">
+        <sc-for list="{{ steps }}" as="st" hint-placeholder-count="4">
+          <div data-reveal="" style="border-top:1px solid #262626;padding-top:22px">
+            <div style="font-size:44px;font-weight:800;color:#FF6B00;line-height:1;letter-spacing:-0.04em">{{ st.n }}</div>
+            <h3 style="margin:18px 0 10px;font-size:18px;font-weight:700">{{ st.title }}</h3>
+            <p style="margin:0;font-size:15px;line-height:1.62;color:#96968F">{{ st.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" style="border-top:1px solid #1F1F1F;background:#0C0C0C">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,9vw,110px) 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px;align-items:start">
+      <div>
+        <div data-reveal="" style="font-size:11px;font-weight:700;letter-spacing:0.22em;color:#FF6B00;margin-bottom:16px">CREDENTIALS</div>
+        <h2 data-reveal="" style="margin:0 0 20px;font-size:clamp(28px,4.4vw,44px);font-weight:700;letter-spacing:-0.02em">One technician. Every job.</h2>
+        <p style="margin:0;font-size:16px;line-height:1.65;color:#96968F;max-width:46ch">The person who answers the phone is the person who diagnoses the car and does the work. Nothing is handed to an apprentice, and nothing gets billed that wasn't on the estimate.</p>
+      </div>
+      <div style="display:grid;gap:1px;background:#1F1F1F;border:1px solid #1F1F1F">
+        <sc-for list="{{ credentials }}" as="c" hint-placeholder-count="5">
+          <div data-reveal="" style="background:#0F0F0F;padding:20px 22px;display:flex;align-items:center;gap:14px">
+            <span style="width:6px;height:6px;background:#FF6B00;flex:none"></span>
+            <span style="font-size:15px;font-weight:600;color:#E6E6E3">{{ c }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="area" style="border-top:1px solid #1F1F1F">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,9vw,110px) 20px">
+      <div data-reveal="" style="font-size:11px;font-weight:700;letter-spacing:0.22em;color:#FF6B00;margin-bottom:16px">SERVICE AREA</div>
+      <h2 data-reveal="" style="margin:0 0 16px;font-size:clamp(28px,4.4vw,44px);font-weight:700;letter-spacing:-0.02em">South Jersey, driveway to driveway.</h2>
+      <p style="margin:0 0 36px;font-size:16px;line-height:1.6;color:#8E8E8A;max-width:52ch">Camden, Burlington, and Gloucester counties. If your town isn't listed, call and ask.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        <sc-for list="{{ towns }}" as="t" hint-placeholder-count="14">
+          <span data-reveal="" style="border:1px solid #262626;padding:9px 15px;font-size:14px;font-weight:500;color:#B8B8B4;transition:border-color .2s ease,color .2s ease" style-hover="border-color:#FF6B00;color:#F5F5F3">{{ t }}</span>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="background:#EE6002;color:#0A0A0A">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(56px,8vw,92px) 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:32px">
+      <div>
+        <h2 data-reveal="" style="margin:0;font-size:clamp(28px,4.6vw,48px);font-weight:800;letter-spacing:-0.03em;line-height:1.05;max-width:18ch">Have a European car with a problem?</h2>
+        <p style="margin:14px 0 0;font-size:17px;font-weight:600;color:rgba(10,10,10,0.72)">Call with the year, model, and symptoms. You'll get a written estimate before any work starts.</p>
+      </div>
+      <a href="{{ telHref }}" style="background:#0A0A0A;color:#FF6B00;font-size:clamp(18px,2.4vw,24px);font-weight:800;padding:20px 32px;border-radius:2px;white-space:nowrap;transition:background .2s ease,transform .2s ease" style-hover="background:#141414;transform:translateY(-2px)">Call {{ phone }}</a>
+    </div>
+  </section>
+
+  <footer style="border-top:1px solid #1F1F1F;background:#0A0A0A">
+    <div style="max-width:1200px;margin:0 auto;padding:56px 20px 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:40px">
+      <div>
+        <div style="font-size:16px;font-weight:800;letter-spacing:0.06em;color:#FF6B00">EWAY AUTO REPAIRS</div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.24em;color:#6E6E6A;margin-top:6px">EUROPEAN SPECIALIST</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <a href="#services" style="font-size:14px;color:#B8B8B4">Services</a>
+        <a href="#ppi" style="font-size:14px;color:#B8B8B4">Pre-Purchase Inspection</a>
+        <a href="#brands" style="font-size:14px;color:#B8B8B4">Brands</a>
+        <a href="#area" style="font-size:14px;color:#B8B8B4">Service Area</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <a href="{{ telHref }}" style="font-size:14px;color:#B8B8B4">Call {{ phone }}</a>
+        <a href="https://instagram.com/ewayautorepairs" style="font-size:14px;color:#B8B8B4">Instagram @ewayautorepairs</a>
+        <a href="https://facebook.com/ewayautorepairs" style="font-size:14px;color:#B8B8B4">Facebook @ewayautorepairs</a>
+      </div>
+    </div>
+    <div style="max-width:1200px;margin:0 auto;padding:0 20px 44px">
+      <p style="margin:0;font-size:12px;line-height:1.65;color:#5E5E5A;max-width:92ch">Eway Auto Repairs is an independent repair facility and is not affiliated with, sponsored by, or endorsed by any vehicle manufacturer. All manufacturer names are used for identification purposes only.</p>
+      <p style="margin:14px 0 0;font-size:12px;color:#4A4A48">© 2026 Eway Auto Repairs. Mobile service, South Jersey.</p>
+    </div>
+  </footer>
+
+  <sc-if value="{{ showCallBar }}" hint-placeholder-val="{{ true }}">
+    <a data-mobile-only="" href="{{ telHref }}" style="position:fixed;left:0;right:0;bottom:0;z-index:60;background:#EE6002;color:#0A0A0A;display:flex;align-items:center;justify-content:center;gap:10px;height:64px;font-size:17px;font-weight:800;letter-spacing:0.01em;box-shadow:0 -8px 24px rgba(0,0,0,0.5)">Tap to Call {{ phone }}</a>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;phone&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;(856) 555-0142&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showCallBar&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        const sibs = Array.from(el.parentElement ? el.parentElement.children : []).filter((n) => n.hasAttribute && n.hasAttribute("data-reveal"));
+        const i = Math.max(0, sibs.indexOf(el));
+        el.style.animationDelay = Math.min(i * 70, 420) + "ms";
+        el.classList.add("is-in");
+        io.unobserve(el);
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
+    this._io = io;
+    const scan = () => document.querySelectorAll("[data-reveal]:not(.is-in)").forEach((el) => io.observe(el));
+    scan();
+    this._scan = setInterval(scan, 500);
+    setTimeout(() => { clearInterval(this._scan); this._scan = null; }, 4000);
+
+    const header = document.querySelector("header");
+    this._onScroll = () => {
+      if (!header) return;
+      const past = window.scrollY > 24;
+      header.style.boxShadow = past ? "0 1px 0 rgba(255,107,0,0.35), 0 10px 30px rgba(0,0,0,0.55)" : "none";
+      header.style.background = past ? "rgba(10,10,10,0.96)" : "rgba(10,10,10,0.72)";
+    };
+    window.addEventListener("scroll", this._onScroll, { passive: true });
+    this._onScroll();
+  }
+  componentWillUnmount() {
+    if (this._io) this._io.disconnect();
+    if (this._scan) clearInterval(this._scan);
+    if (this._onScroll) window.removeEventListener("scroll", this._onScroll);
+  }
+  renderVals() {
+    const phone = this.props.phone ?? "(856) 555-0142";
+    return {
+      phone,
+      telHref: "tel:" + phone.replace(/[^0-9+]/g, ""),
+      showCallBar: this.props.showCallBar ?? true,
+      brands: ["BMW", "Mercedes-Benz", "Audi", "Volkswagen", "Porsche", "Land Rover", "Jaguar", "Mini", "Volvo", "Saab", "Alfa Romeo", "Fiat"],
+      services: [
+        { num: "01", anchor: "svc-diagnostics", title: "Diagnostics", body: "Factory-level scan tools and a systematic process. Fault codes are a starting point, not an answer." },
+        { num: "02", anchor: "ppi", title: "Pre-Purchase Inspections", body: "Before you buy: compression, leaks, service history, module health, and a written report of what it will cost you." },
+        { num: "03", anchor: "svc-maintenance", title: "Scheduled Maintenance", body: "Oil and filters, fluids, plugs, belts, and inspections on the manufacturer's interval with correct-spec parts." },
+        { num: "04", anchor: "svc-brakes", title: "Brakes & Suspension", body: "Pads, rotors, sensors, control arms, bushings, and struts. Electronic parking brakes retracted and reset properly." },
+        { num: "05", anchor: "svc-coding", title: "Coding & Programming", body: "Module coding, adaptations, retrofits, and battery registration for cars that need it after a repair." },
+        { num: "06", anchor: "svc-second", title: "Second Opinions", body: "Bring me the shop's estimate. I'll tell you what the car actually needs and what can wait." }
+      ],
+      steps: [
+        { n: "01", title: "Call with the details", body: "Year, model, mileage, and what the car is doing. Most problems narrow down on the phone." },
+        { n: "02", title: "I come to you", body: "Home or work, driveway or lot. Diagnostics and most repairs happen on site." },
+        { n: "03", title: "Written estimate first", body: "Parts, labor, and time in writing before anything is taken apart. No work without your approval." },
+        { n: "04", title: "Itemized invoice", body: "Every part and every hour listed. Old parts stay with the car if you want them." }
+      ],
+      credentials: ["ASE Master Technician", "ASE L1 Advanced Engine Performance", "Factory-Trained", "NJ Certified Emission Repair Technician", "30+ Years Experience"],
+      towns: ["Cherry Hill", "Voorhees", "Marlton", "Moorestown", "Haddonfield", "Medford", "Mount Laurel", "Collingswood", "Sewell", "Washington Township", "Mullica Hill", "Woodbury", "Deptford", "Maple Shade", "Haddon Heights", "Berlin"]
+    };
+  }
+}
+
+</script>
+</body>
+</html>

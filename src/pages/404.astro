@@ -1,0 +1,31 @@
+---
+import Page from '../layouts/Page.astro';
+import PageIntro from '../components/PageIntro.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const title = 'Page Not Found | Eway Auto Repairs';
+const description = 'That page does not exist. Mobile European auto repair in South Jersey.';
+---
+
+<Page title={title} description={description} path="/404">
+  <PageIntro eyebrow="404">
+    <Fragment slot="title">That page isn't here.</Fragment>
+    <Fragment slot="intro">
+      The link is broken or the page moved. Everything worth finding is one click away.
+    </Fragment>
+  </PageIntro>
+
+  <section class="section-ruled">
+    <div class="section container">
+      <div class="next-links" style="margin-top:0">
+        <a class="chip-link" href="/">Home</a>
+        <a class="chip-link" href="/services">Services</a>
+        <a class="chip-link" href="/pre-purchase-inspection">Pre-Purchase Inspection</a>
+        <a class="chip-link" href="/brands">Brands</a>
+        <a class="chip-link" href="/contact">Contact</a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Page>

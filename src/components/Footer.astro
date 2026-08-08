@@ -1,0 +1,34 @@
+---
+import { PHONE, TEL_HREF, INSTAGRAM, FACEBOOK } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="cols">
+    <div>
+      <div class="wordmark-line">EWAY AUTO REPAIRS</div>
+      <div class="tagline-line">EUROPEAN SPECIALIST</div>
+    </div>
+    <div class="col">
+      <a href="/services">Services</a>
+      <a href="/pre-purchase-inspection">Pre-Purchase Inspection</a>
+      <a href="/brands">Brands</a>
+      <a href="/service-area">Service Area</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+    </div>
+    <div class="col">
+      <a href={TEL_HREF}>Call {PHONE}</a>
+      <a href={INSTAGRAM} rel="noopener">Instagram @ewayautorepairs</a>
+      <a href={FACEBOOK} rel="noopener">Facebook @ewayautorepairs</a>
+    </div>
+  </div>
+  <div class="legal">
+    <p class="disclaimer">
+      Eway Auto Repairs is an independent repair facility and is not affiliated with, sponsored
+      by, or endorsed by any vehicle manufacturer. All manufacturer names are used for
+      identification purposes only.
+    </p>
+    <p class="copyright">© {year} Eway Auto Repairs. Mobile service, South Jersey.</p>
+  </div>
+</footer>

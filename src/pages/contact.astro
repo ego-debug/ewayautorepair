@@ -1,0 +1,148 @@
+---
+import Page from '../layouts/Page.astro';
+import PageIntro from '../components/PageIntro.astro';
+import { PHONE, TEL_HREF, WEB3FORMS_KEY } from '../data/site';
+
+const title = 'Contact — Request a Quote | Eway Auto Repairs';
+const description = `Reach the technician directly. Call ${PHONE} or send the year, model, and symptoms — you'll get a written estimate before any work starts. Mobile European auto repair, South Jersey.`;
+---
+
+<Page title={title} description={description} path="/contact">
+  <PageIntro eyebrow="Contact">
+    <Fragment slot="title">Talk to the <span class="accent">technician</span>.</Fragment>
+    <Fragment slot="intro">
+      No service writer, no phone tree. Describe what the car is doing and you'll get a
+      straight answer about what it probably is and what it costs to find out for sure.
+    </Fragment>
+  </PageIntro>
+
+  <section class="section-ruled">
+    <div class="section container">
+      <div class="phone-first" data-reveal>
+        The fastest way to reach us is a phone call:
+        <a href={TEL_HREF}>{PHONE}</a>
+      </div>
+
+      <h2 style="margin-top:56px" data-reveal>Or send the details</h2>
+      <p class="section-intro">
+        Most problems narrow down fast with the year, model, and a plain description of the
+        symptom.
+      </p>
+
+      <form
+        id="quote-form"
+        class="contact-form"
+        method="POST"
+        action="https://api.web3forms.com/submit"
+        data-tel={TEL_HREF}
+        data-phone={PHONE}
+        novalidate
+      >
+        <!-- PLACEHOLDER — create a free Web3Forms access key for service@ewayautorepairs.com
+             and set WEB3FORMS_KEY in src/data/site.ts. Submissions email to that address;
+             enable Web3Forms' SMS/forward options so he actually sees them under a car. -->
+        <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+        <input type="hidden" name="subject" value="Quote request — ewayautorepairs.com" />
+        <input type="hidden" name="from_name" value="Eway Auto Repairs website" />
+        <!-- Honeypot: real users never see or fill this. -->
+        <input
+          type="checkbox"
+          name="botcheck"
+          class="hp-field"
+          tabindex="-1"
+          autocomplete="off"
+        />
+
+        <div class="form-field">
+          <label for="f-name">Name <span class="req">*</span></label>
+          <input id="f-name" name="name" type="text" required autocomplete="name" />
+        </div>
+        <div class="form-field">
+          <label for="f-phone">Phone <span class="req">*</span></label>
+          <input id="f-phone" name="phone" type="tel" required autocomplete="tel" />
+        </div>
+        <div class="form-field">
+          <label for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" />
+        </div>
+        <div class="form-field">
+          <label for="f-vehicle">Year / Make / Model <span class="req">*</span></label>
+          <input id="f-vehicle" name="vehicle" type="text" required placeholder="2016 BMW 340i" />
+        </div>
+        <div class="form-field">
+          <label for="f-mileage">Mileage</label>
+          <input id="f-mileage" name="mileage" type="text" inputmode="numeric" />
+        </div>
+        <div class="form-field">
+          <label for="f-town">Town <span class="req">*</span></label>
+          <input id="f-town" name="town" type="text" required placeholder="Cherry Hill" />
+        </div>
+        <div class="form-field wide">
+          <label for="f-symptoms">What's it doing? <span class="req">*</span></label>
+          <textarea
+            id="f-symptoms"
+            name="symptoms"
+            required
+            placeholder="Check engine light, rattle on cold start, dealer quote you want a second opinion on — plain words are fine."></textarea>
+        </div>
+        <div class="form-field wide">
+          <label for="f-source">How'd you hear about us?</label>
+          <select id="f-source" name="heard_from">
+            <option value="">Choose one (optional)</option>
+            <option>Google search</option>
+            <option>Friend or family referral</option>
+            <option>Instagram</option>
+            <option>Facebook</option>
+            <option>Saw the van</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Send it over</button>
+          <span class="note" style="font-size:14px;color:var(--text-faint)">
+            You'll get a call back, not a mailing list.
+          </span>
+        </div>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    const form = document.getElementById('quote-form') as HTMLFormElement | null;
+    const status = document.getElementById('form-status');
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.reportValidity() || !status) return;
+
+      const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+      btn.disabled = true;
+      status.className = 'form-status';
+      status.textContent = 'Sending…';
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        const data = await res.json();
+        if (data.success) {
+          form.reset();
+          status.className = 'form-status ok';
+          status.textContent =
+            "Got it. You'll hear back as soon as I'm out from under a car — usually the same day.";
+        } else {
+          throw new Error(data.message || 'Submission failed');
+        }
+      } catch {
+        status.className = 'form-status err';
+        status.innerHTML = `Something glitched sending the form — call or text instead: <a href="${form.dataset.tel}">${form.dataset.phone}</a>`;
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
+</Page>

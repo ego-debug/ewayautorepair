@@ -1,0 +1,125 @@
+---
+import Page from '../layouts/Page.astro';
+import PageIntro from '../components/PageIntro.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { PHONE, TEL_HREF } from '../data/site';
+import { serviceSchema, faqSchema } from '../data/schema';
+
+const title = 'Pre-Purchase Inspection for European Cars | South Jersey Mobile PPI';
+const description = `Mobile pre-purchase inspection for BMW, Mercedes, Audi, Porsche, Land Rover and more. 30+ years, ASE Master certified. We inspect at the seller's location. South Jersey. Call ${PHONE}.`;
+
+const included = [
+  'Full scan of every control module — current and stored faults, plus freeze-frame data most sellers don’t know is there',
+  'Service history and maintenance interval review',
+  'Engine, transmission, and drivetrain inspection',
+  'Cooling system, leaks, and fluid condition',
+  'Suspension, steering, brakes, and tire assessment',
+  'Undercarriage, rust, and prior accident/repair evidence',
+  'Known failure points specific to that model and year',
+  'Electrical systems and options function check',
+  'Photo documentation throughout',
+  'A written report and a direct conversation about what we found',
+];
+
+// [ANSWER] placeholders below need the technician's real answers before launch.
+const faqs = [
+  {
+    q: 'Can you inspect a car at a dealership?',
+    a: "Most dealers allow it. We'll coordinate.",
+  },
+  {
+    q: 'How far will you travel?',
+    a: '[ANSWER — how far he will actually drive for a PPI]',
+  },
+  {
+    q: 'How soon can you get out there?',
+    a: '[ANSWER — realistic scheduling turnaround]',
+  },
+  {
+    q: "What if the seller won't allow an inspection?",
+    a: "That's your answer about the car.",
+  },
+  {
+    q: 'Do you inspect private-party sales?',
+    a: "Yes, and that's where a PPI matters most.",
+  },
+];
+
+const schemas = [
+  serviceSchema(
+    'Pre-Purchase Inspection',
+    'Mobile pre-purchase inspection for European cars at the seller’s location in South Jersey.',
+    '/pre-purchase-inspection'
+  ),
+  faqSchema(faqs),
+];
+---
+
+<Page title={title} description={description} path="/pre-purchase-inspection" schemas={schemas}>
+  <PageIntro eyebrow="Pre-Purchase Inspection">
+    <Fragment slot="title">
+      Before You Buy That <span class="accent">European Car</span>
+    </Fragment>
+    <Fragment slot="intro">
+      A used European car can be the best value on the road or the most expensive mistake
+      you'll ever make — and the difference is usually invisible on a test drive.
+    </Fragment>
+  </PageIntro>
+
+  <section class="section-ruled">
+    <div class="section container">
+      <div class="copy">
+        <p>
+          I inspect the car <strong>at the seller's location</strong>, before you hand over
+          money. You get a full report with photos, a scan of every module, and an honest
+          answer to the only question that matters: <em>should you buy this car, and what will
+          it cost you in the next year?</em>
+        </p>
+      </div>
+
+      <h2 style="margin-top:56px" data-reveal>What's included</h2>
+      <ul class="check-list">
+        {included.map((item) => <li data-reveal>{item}</li>)}
+      </ul>
+
+      <!-- PLACEHOLDER price — brief suggests $250–$300; don't go under $200. -->
+      <div class="price-block" data-reveal>
+        <span class="price">[$XXX] flat</span>
+        <span class="note">Most inspections take 60–90 minutes.</span>
+      </div>
+
+      <div class="copy" style="margin-top:48px">
+        <p>
+          <strong>I'm not connected to the seller and I don't care whether you buy the
+          car.</strong> I work for you. If it's a good car, I'll say so. If it needs $6,000 in
+          deferred maintenance, you'll know before you sign — and that's leverage on the price
+          or a reason to walk.
+        </p>
+      </div>
+
+      <h2 style="margin-top:56px" data-reveal>Questions people ask</h2>
+      <div class="faq">
+        {
+          faqs.map((f) => (
+            <div class="faq-item" data-reveal>
+              <h3>{f.q}</h3>
+              <p>{f.a}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="next-links">
+        <a class="chip-link" href="/brands">Marque-specific failure points</a>
+        <a class="chip-link" href="/services">All services</a>
+        <a class="chip-link" href="/service-area">Where I'll travel</a>
+        <a class="chip-link" href="/contact">Book an inspection</a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Found a car worth a look?"
+    sub={`Call ${PHONE} with the listing and I'll tell you what that model's known weak points are before we even schedule.`}
+  />
+</Page>

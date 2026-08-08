@@ -1,0 +1,57 @@
+---
+import Page from '../../layouts/Page.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { PHONE } from '../../data/site';
+import { BRAND_PAGES } from '../../data/brands';
+
+const title = 'European Brands We Service | Eway Auto Repairs — South Jersey';
+const description = `BMW, Mercedes-Benz, Audi, VW, Porsche, Land Rover, Jaguar and more — serviced exclusively, at your driveway in South Jersey. 30+ years, ASE Master certified. Call ${PHONE}.`;
+
+// Phase 2 will add dedicated pages for these marques.
+const alsoServiced = ['Mini', 'Volvo', 'Saab', 'Alfa Romeo', 'Fiat'];
+---
+
+<Page title={title} description={description} path="/brands">
+  <PageIntro eyebrow="Brands">
+    <Fragment slot="title">
+      One specialty: <span class="accent">European cars</span>.
+    </Fragment>
+    <Fragment slot="intro">
+      Not "we also do European." It's all I do — one set of platforms, one set of tools, one
+      set of failure patterns, for thirty years. Pick your marque for the specifics.
+    </Fragment>
+  </PageIntro>
+
+  <section class="section-ruled">
+    <div class="section container">
+      <div class="failure-list" style="margin-top:0">
+        {
+          BRAND_PAGES.map((b) => (
+            <a class="failure-item" href={`/brands/${b.slug}`} data-reveal style="display:block">
+              <h3 style="color:var(--accent)">{b.name} →</h3>
+              <p>{b.intro}</p>
+            </a>
+          ))
+        }
+      </div>
+
+      <h2 style="margin-top:64px" data-reveal>Also serviced</h2>
+      <p class="section-intro">
+        Same tools, same standards — dedicated pages for these are coming, but the service is
+        here now.
+      </p>
+      <div class="town-row">
+        {alsoServiced.map((b) => <span class="town-chip" data-reveal>{b}</span>)}
+      </div>
+
+      <div class="next-links">
+        <a class="chip-link" href="/pre-purchase-inspection">Pre-Purchase Inspection</a>
+        <a class="chip-link" href="/services">All services</a>
+        <a class="chip-link" href="/contact">Request a quote</a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Page>

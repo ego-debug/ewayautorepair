@@ -1,0 +1,25 @@
+---
+import { PHONE, TEL_HREF } from '../data/site';
+
+interface Props {
+  title?: string;
+  sub?: string;
+  id?: string;
+}
+
+const {
+  title = 'Have a European car with a problem?',
+  sub = "Call with the year, model, and symptoms. You'll get a written estimate before any work starts.",
+  id,
+} = Astro.props;
+---
+
+<section id={id} class="cta-band">
+  <div class="inner">
+    <div>
+      <h2 data-reveal>{title}</h2>
+      <p class="sub">{sub}</p>
+    </div>
+    <a href={TEL_HREF} class="btn-cta-band">Call {PHONE}</a>
+  </div>
+</section>

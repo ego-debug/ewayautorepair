@@ -1,0 +1,178 @@
+---
+import Page from '../layouts/Page.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { businessSchema } from '../data/schema';
+import {
+  PHONE,
+  TEL_HREF,
+  BRANDS,
+  SERVICES,
+  STEPS,
+  CREDENTIALS,
+  TOWNS,
+} from '../data/site';
+import { BRAND_PAGES } from '../data/brands';
+
+const title = 'European Auto Repair in South Jersey | Eway Auto Repairs';
+const description = `Mobile European car specialist serving South Jersey. 30+ years, ASE Master certified. BMW, Mercedes, Audi, Porsche, Land Rover and more. We come to you. Call ${PHONE}.`;
+
+const brandHrefs = new Map(BRAND_PAGES.flatMap((b) => {
+  if (b.slug === 'audi-volkswagen') {
+    return [['Audi', '/brands/audi-volkswagen'], ['Volkswagen', '/brands/audi-volkswagen']];
+  }
+  if (b.slug === 'land-rover-jaguar') {
+    return [['Land Rover', '/brands/land-rover-jaguar'], ['Jaguar', '/brands/land-rover-jaguar']];
+  }
+  return [[b.name, `/brands/${b.slug}`]];
+}));
+
+const serviceHref = (s: (typeof SERVICES)[number]) =>
+  s.anchor === 'ppi' ? '/pre-purchase-inspection' : `/services#${s.anchor}`;
+---
+
+<Page title={title} description={description} path="/" schemas={[businessSchema]}>
+  <!-- Hero -->
+  <section id="top" class="hero">
+    <div class="hero-media">
+      <!-- PLACEHOLDER image — replace with a real dark engine-bay / diagnostic photo,
+           landscape, ≥2000px wide, as AVIF/WebP <picture>. It sits under a heavy scrim. -->
+      <img
+        src="/images/hero-placeholder.svg"
+        alt=""
+        loading="eager"
+        fetchpriority="high"
+        width="2000"
+        height="1200"
+      />
+    </div>
+    <div class="hero-scrim"></div>
+    <div class="hero-content">
+      <div class="eyebrow-badge" data-reveal>MOBILE SERVICE · SOUTH JERSEY</div>
+      <h1 data-reveal>
+        European Auto Repair That <span class="accent">Comes to You</span>
+      </h1>
+      <p class="subhead" data-reveal>
+        30+ years of factory-level European experience, serving South Jersey. ASE Master
+        Technician. Dealer capability without dealer pricing.
+      </p>
+      <div class="hero-ctas" data-reveal>
+        <a href={TEL_HREF} class="btn-primary">Call {PHONE}</a>
+        <a href="/contact" class="btn-secondary">Request a Quote</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust bar -->
+  <section class="trust-bar" aria-label="Why customers trust us">
+    <div class="grid">
+      <div class="item" data-reveal>30+ Years Experience</div>
+      <div class="item" data-reveal>ASE Master Certified</div>
+      <div class="item" data-reveal>Mobile — We Come to You</div>
+      <div class="item" data-reveal>Written Estimates, Always</div>
+    </div>
+  </section>
+
+  <!-- Brands -->
+  <section id="brands" class="section container">
+    <h2 data-reveal>We only work on European cars.</h2>
+    <p class="section-intro">
+      One set of platforms, one set of tools, one set of failure patterns. That focus is why
+      the diagnosis is right the first time.
+    </p>
+    <div class="brand-grid">
+      {
+        BRANDS.map((brand) =>
+          brandHrefs.has(brand) ? (
+            <a class="brand-tile" href={brandHrefs.get(brand)} data-reveal>
+              {brand}
+            </a>
+          ) : (
+            <div class="brand-tile" data-reveal>
+              {brand}
+            </div>
+          )
+        )
+      }
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="section-alt">
+    <div class="section container">
+      <div class="eyebrow" data-reveal>Services</div>
+      <h2 data-reveal>What I do in your driveway.</h2>
+      <div class="service-grid">
+        {
+          SERVICES.map((s) => (
+            <a class="service-card" href={serviceHref(s)} data-reveal>
+              <div class="num">{s.num}</div>
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section-ruled">
+    <div class="section container">
+      <div class="eyebrow" data-reveal>How It Works</div>
+      <h2 data-reveal>Four steps, no surprises.</h2>
+      <div class="step-grid">
+        {
+          STEPS.map((st) => (
+            <div class="step" data-reveal>
+              <div class="numeral">{st.n}</div>
+              <h3>{st.title}</h3>
+              <p>{st.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- About / credentials -->
+  <section id="about" class="section-alt">
+    <div class="section container about-grid">
+      <div>
+        <div class="eyebrow" data-reveal>Credentials</div>
+        <h2 data-reveal>One technician. Every job.</h2>
+        <p class="lede">
+          The person who answers the phone is the person who diagnoses the car and does the
+          work. Nothing is handed to an apprentice, and nothing gets billed that wasn't on the
+          estimate. <a href="/about">More about me</a>.
+        </p>
+      </div>
+      <div class="credential-list">
+        {
+          CREDENTIALS.map((c) => (
+            <div class="credential-row" data-reveal>
+              <span class="square"></span>
+              <span class="label">{c}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Service area -->
+  <section id="area" class="section-ruled">
+    <div class="section container">
+      <div class="eyebrow" data-reveal>Service Area</div>
+      <h2 data-reveal>South Jersey, driveway to driveway.</h2>
+      <p class="section-intro">
+        Camden, Burlington, and Gloucester counties. If your town isn't listed,
+        <a href="/service-area">see the full service area</a> or call and ask.
+      </p>
+      <div class="town-row">
+        {TOWNS.map((t) => <span class="town-chip" data-reveal>{t}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand id="contact" />
+</Page>

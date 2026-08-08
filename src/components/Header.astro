@@ -1,0 +1,30 @@
+---
+import { PHONE, TEL_HREF } from '../data/site';
+---
+
+<header class="site-header" id="site-header">
+  <div class="row">
+    <a href="/" class="wordmark" aria-label="Eway Auto Repairs — home">
+      <span class="mark">EWAY AUTO REPAIRS</span>
+      <span class="tagline desktop-only">EUROPEAN SPECIALIST</span>
+    </a>
+    <nav class="site-nav desktop-only" aria-label="Main">
+      <a href="/services">Services</a>
+      <a href="/pre-purchase-inspection">Pre-Purchase Inspection</a>
+      <a href="/brands">Brands</a>
+      <a href="/about">About</a>
+      <a href="/service-area">Service Area</a>
+      <a href="/contact">Contact</a>
+    </nav>
+    <a href={TEL_HREF} class="btn-call">Call {PHONE}</a>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('site-header');
+  const onScroll = () => {
+    header?.classList.toggle('is-scrolled', window.scrollY > 24);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
