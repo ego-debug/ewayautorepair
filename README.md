@@ -37,7 +37,7 @@ npm run preview # preview the production build
 5. **OG image**: add `public/images/og.jpg` and wire it in `src/layouts/Base.astro`.
 6. **Web3Forms key**: `WEB3FORMS_KEY` in `src/data/site.ts`. Create a free key at
    web3forms.com pointed at the business email; the contact form won't send until set.
-7. **PPI price**: `[$XXX]` on `/pre-purchase-inspection` (brief suggests $250–$300, not
+7. **PPI price**: `[$XXX]` on `/pre-purchase-inspection` (brief suggests $250 to $300, not
    under $200) plus two `[ANSWER]` FAQ items (travel distance, scheduling turnaround).
 8. **About page**: `[HIS STORY]` and `[BRANDS]` factory-training list on `/about`, plus a
    real photo of him.
