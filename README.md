@@ -51,3 +51,30 @@ npm run preview # preview the production build
 - **No manufacturer logos or trade dress** — brand names as plain text only.
 - The manufacturer-independence disclaimer stays in the footer of every page.
 - Certification claims must be verified current before publishing.
+
+## Motion system
+
+Implemented from the `Eway Auto Repairs - Animated` design (Claude Design project
+`d158ff83`). The prototype's `image-slot.js` and `support.js` are Design-runtime
+scaffolding and are deliberately not shipped; every image slot is a real `<img>`.
+
+Animation is driven by data attributes, wired up once in `src/layouts/Page.astro`:
+
+| Attribute | Effect |
+|---|---|
+| `data-reveal` | Fade and rise into view, staggered 80ms by sibling index (capped 480ms) |
+| `data-tile` | Same, faster 45ms stagger, for grids of brand tiles and town chips |
+| `data-rule` | Orange accent rule wipes out from the left |
+| `data-word` | Headline word rises out of a clipped mask, staggered 65ms |
+| `data-kb` | Slow Ken Burns scale on an image, 24s alternating |
+| `data-pip` | Credential marker breathes, offset per row |
+| `data-parallax` | Layer translates against scroll (`data-parallax-rate`, default 0.12) |
+| `data-scanline` | One orange sweep down the hero on load |
+| `data-progress` | Read-progress bar in the header tracks scroll position |
+
+Notes:
+- Header state and the progress bar follow scroll position rather than animating on
+  their own, so they stay active under `prefers-reduced-motion`. Parallax, Ken Burns,
+  reveals, and the scan line all switch off.
+- Revealed elements start at `opacity: 0`, so a `<noscript>` block in `Base.astro`
+  forces everything visible when scripts do not run.

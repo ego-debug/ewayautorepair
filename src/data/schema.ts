@@ -1,7 +1,7 @@
 import { NAME, DOMAIN, PHONE, EMAIL, INSTAGRAM, FACEBOOK } from './site';
 
 // AutoRepair schema for a service-area business.
-// Deliberately no `address` — publishing one is wrong for a mobile business.
+// Deliberately no `address`: publishing one is wrong for a mobile business.
 export const businessSchema = {
   '@context': 'https://schema.org',
   '@type': 'AutoRepair',

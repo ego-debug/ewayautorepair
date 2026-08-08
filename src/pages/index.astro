@@ -1,6 +1,8 @@
 ---
 import Page from '../layouts/Page.astro';
 import CtaBand from '../components/CtaBand.astro';
+import WorkBand from '../components/WorkBand.astro';
+import MediaFrame from '../components/MediaFrame.astro';
 import { businessSchema } from '../data/schema';
 import {
   PHONE,
@@ -14,7 +16,18 @@ import {
 import { BRAND_PAGES } from '../data/brands';
 
 const title = 'European Auto Repair in South Jersey | Eway Auto Repairs';
-const description = `Mobile European car specialist serving South Jersey. 30+ years, ASE Master certified. BMW, Mercedes, Audi, Porsche, Land Rover and more. We come to you. Call ${PHONE}.`;
+const description = `Mobile European car specialist serving South Jersey. 30+ years, ASE Master certified. BMW, Mercedes, Audi, Porsche, Land Rover and more. I come to you. Call ${PHONE}.`;
+
+// The headline animates word by word, so it ships as words rather than a string.
+const HEADLINE = [
+  { text: 'European', accent: false },
+  { text: 'Auto', accent: false },
+  { text: 'Repair', accent: false },
+  { text: 'That', accent: false },
+  { text: 'Comes', accent: true },
+  { text: 'to', accent: true },
+  { text: 'You', accent: true },
+];
 
 const brandHrefs = new Map(BRAND_PAGES.flatMap((b) => {
   if (b.slug === 'audi-volkswagen') {
@@ -33,23 +46,32 @@ const serviceHref = (s: (typeof SERVICES)[number]) =>
 <Page title={title} description={description} path="/" schemas={[businessSchema]}>
   <!-- Hero -->
   <section id="top" class="hero">
-    <div class="hero-media">
-      <!-- PLACEHOLDER image — replace with a real dark engine-bay / diagnostic photo,
-           landscape, ≥2000px wide, as AVIF/WebP <picture>. It sits under a heavy scrim. -->
-      <img
-        src="/images/hero-placeholder.svg"
-        alt=""
-        loading="eager"
-        fetchpriority="high"
-        width="2000"
-        height="1200"
-      />
+    <div class="hero-parallax" data-parallax>
+      <div data-kb>
+        <!-- PLACEHOLDER image. Replace with a real dark engine-bay or scan-tool photo,
+             landscape, at least 2000px wide, as an AVIF/WebP picture element. -->
+        <img
+          src="/images/hero-placeholder.svg"
+          alt=""
+          loading="eager"
+          fetchpriority="high"
+          width="2000"
+          height="1200"
+        />
+      </div>
     </div>
     <div class="hero-scrim"></div>
+    <div class="hero-scanline" data-scanline></div>
     <div class="hero-content">
       <div class="eyebrow-badge" data-reveal>MOBILE SERVICE · SOUTH JERSEY</div>
-      <h1 data-reveal>
-        European Auto Repair That <span class="accent">Comes to You</span>
+      <h1>
+        {
+          HEADLINE.map((word) => (
+            <span class="word-mask">
+              <span data-word class:list={[word.accent && 'accent']}>{word.text}&nbsp;</span>
+            </span>
+          ))
+        }
       </h1>
       <p class="subhead" data-reveal>
         30+ years of factory-level European experience, serving South Jersey. ASE Master
@@ -67,7 +89,7 @@ const serviceHref = (s: (typeof SERVICES)[number]) =>
     <div class="grid">
       <div class="item" data-reveal>30+ Years Experience</div>
       <div class="item" data-reveal>ASE Master Certified</div>
-      <div class="item" data-reveal>Mobile — We Come to You</div>
+      <div class="item" data-reveal>Mobile. I Come to You</div>
       <div class="item" data-reveal>Written Estimates, Always</div>
     </div>
   </section>
@@ -75,7 +97,8 @@ const serviceHref = (s: (typeof SERVICES)[number]) =>
   <!-- Brands -->
   <section id="brands" class="section container">
     <h2 data-reveal>We only work on European cars.</h2>
-    <p class="section-intro">
+    <div class="rule" data-rule></div>
+    <p class="section-intro" data-reveal>
       Thirty years on the same platforms means I've usually seen your car's problem before,
       probably more than once. That's why the diagnosis is right the first time.
     </p>
@@ -83,11 +106,11 @@ const serviceHref = (s: (typeof SERVICES)[number]) =>
       {
         BRANDS.map((brand) =>
           brandHrefs.has(brand) ? (
-            <a class="brand-tile" href={brandHrefs.get(brand)} data-reveal>
+            <a class="brand-tile" href={brandHrefs.get(brand)} data-tile>
               {brand}
             </a>
           ) : (
-            <div class="brand-tile" data-reveal>
+            <div class="brand-tile" data-tile>
               {brand}
             </div>
           )
@@ -101,6 +124,7 @@ const serviceHref = (s: (typeof SERVICES)[number]) =>
     <div class="section container">
       <div class="eyebrow" data-reveal>Services</div>
       <h2 data-reveal>What I do in your driveway.</h2>
+      <div class="rule" data-rule></div>
       <div class="service-grid">
         {
           SERVICES.map((s) => (
@@ -115,15 +139,19 @@ const serviceHref = (s: (typeof SERVICES)[number]) =>
     </div>
   </section>
 
+  <WorkBand quote="The shop comes to your driveway. Same tools I'd have in a bay, and nobody has to tow anything." />
+
   <!-- How it works -->
   <section class="section-ruled">
     <div class="section container">
       <div class="eyebrow" data-reveal>How It Works</div>
       <h2 data-reveal>Four steps, no surprises.</h2>
+      <div class="rule" data-rule></div>
       <div class="step-grid">
         {
           STEPS.map((st) => (
             <div class="step" data-reveal>
+              <div class="step-rule" data-rule />
               <div class="numeral">{st.n}</div>
               <h3>{st.title}</h3>
               <p>{st.body}</p>
@@ -140,17 +168,25 @@ const serviceHref = (s: (typeof SERVICES)[number]) =>
       <div>
         <div class="eyebrow" data-reveal>Credentials</div>
         <h2 data-reveal>One technician. Every job.</h2>
-        <p class="lede">
-          The person who answers the phone is the person who diagnoses the car and does the
-          work. Nothing is handed to an apprentice, and nothing gets billed that wasn't on the
-          estimate. <a href="/about">More about me</a>.
+        <div class="rule" data-rule></div>
+        <p class="lede" data-reveal>
+          Whoever answers the phone is the same person who diagnoses your car and does the work
+          on it. Nothing gets handed to an apprentice, and nothing gets billed that wasn't on
+          the estimate. <a href="/about">More about me</a>.
         </p>
+        <MediaFrame
+          src="/images/portrait-placeholder.svg"
+          shape="portrait"
+          width={800}
+          height={1000}
+          alt=""
+        />
       </div>
       <div class="credential-list">
         {
           CREDENTIALS.map((c) => (
             <div class="credential-row" data-reveal>
-              <span class="square"></span>
+              <span class="square" data-pip></span>
               <span class="label">{c}</span>
             </div>
           ))
@@ -164,13 +200,15 @@ const serviceHref = (s: (typeof SERVICES)[number]) =>
     <div class="section container">
       <div class="eyebrow" data-reveal>Service Area</div>
       <h2 data-reveal>South Jersey, driveway to driveway.</h2>
-      <p class="section-intro">
+      <div class="rule" data-rule></div>
+      <p class="section-intro" data-reveal>
         Camden, Burlington, and Gloucester counties. If your town isn't listed,
         <a href="/service-area">see the full service area</a> or call and ask.
       </p>
       <div class="town-row">
-        {TOWNS.map((t) => <span class="town-chip" data-reveal>{t}</span>)}
+        {TOWNS.map((t) => <span class="town-chip" data-tile>{t}</span>)}
       </div>
+      <MediaFrame src="/images/van-placeholder.svg" shape="wide" width={1600} height={600} alt="" />
     </div>
   </section>
 

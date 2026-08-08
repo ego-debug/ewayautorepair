@@ -23,6 +23,7 @@ const { eyebrow, crumbs } = Astro.props;
     }
     {eyebrow && <div class="eyebrow" data-reveal>{eyebrow}</div>}
     <h1 data-reveal><slot name="title" /></h1>
-    <p class="intro"><slot name="intro" /></p>
+    <div class="rule" data-rule></div>
+    <p class="intro" data-reveal><slot name="intro" /></p>
   </div>
 </section>

@@ -1,6 +1,6 @@
 // Brand page content. The failure-mode lists are drafted from the build brief's
 // §5.3 examples plus widely documented platform issues at the same specificity
-// level. CONFIRM AND EXTEND THESE WITH THE TECHNICIAN before launch — his real
+// level. CONFIRM AND EXTEND THESE WITH THE TECHNICIAN before launch. His real
 // list is the most valuable content on the site and cannot be invented.
 
 export interface BrandPage {
@@ -27,7 +27,7 @@ export const BRAND_PAGES: BrandPage[] = [
     metaTitle: 'BMW Repair & Service in South Jersey | Eway Auto Repairs',
     metaDescription:
       'Mobile BMW specialist serving South Jersey. 30+ years on BMW platforms, ASE Master certified. Diagnostics, maintenance, coding and pre-purchase inspections at your driveway.',
-    h1: 'BMW Repair and Service — South Jersey',
+    h1: 'BMW Repair and Service in South Jersey',
     intro:
       'Thirty years on BMW platforms, from E30s through the current cars. Factory-level diagnostics, the right oil, and the coding done properly. In your driveway.',
     opening: [
@@ -89,7 +89,7 @@ export const BRAND_PAGES: BrandPage[] = [
     metaTitle: 'Mercedes-Benz Repair & Service in South Jersey | Eway Auto Repairs',
     metaDescription:
       'Mobile Mercedes-Benz specialist in South Jersey. 30+ years of experience, ASE Master certified. Diagnostics, Airmatic, transmission service and pre-purchase inspections at your driveway.',
-    h1: 'Mercedes-Benz Repair and Service — South Jersey',
+    h1: 'Mercedes-Benz Repair and Service in South Jersey',
     intro:
       'W124s through the current lineup. Three decades of Mercedes diagnostics and service, and the judgment to tell you what needs doing now and what does not.',
     opening: [
@@ -147,7 +147,7 @@ export const BRAND_PAGES: BrandPage[] = [
     metaTitle: 'Audi & Volkswagen Repair in South Jersey | Eway Auto Repairs',
     metaDescription:
       'Mobile Audi and VW specialist in South Jersey. 30+ years, ASE Master certified. Carbon cleaning, timing chain work, DSG service, diagnostics and pre-purchase inspections at your driveway.',
-    h1: 'Audi and Volkswagen Repair — South Jersey',
+    h1: 'Audi and Volkswagen Repair in South Jersey',
     intro:
       'Same engines, same transmissions, same problems. I work on VW-Audi Group cars daily, from GTIs to Q7s, with the scan capability the electronics demand.',
     opening: [
@@ -205,7 +205,7 @@ export const BRAND_PAGES: BrandPage[] = [
     metaTitle: 'Porsche Service & Repair in South Jersey | Eway Auto Repairs',
     metaDescription:
       'Mobile Porsche specialist in South Jersey. 30+ years, ASE Master certified. 911, Boxster, Cayman, Cayenne, Macan. Diagnostics, service and inspections at your location.',
-    h1: 'Porsche Service and Repair — South Jersey',
+    h1: 'Porsche Service and Repair in South Jersey',
     intro:
       'Air-cooled through PDK. Porsches serviced with the care they were built with, and inspections that know where each generation hides its risk.',
     opening: [
@@ -263,7 +263,7 @@ export const BRAND_PAGES: BrandPage[] = [
     metaTitle: 'Land Rover & Jaguar Repair in South Jersey | Eway Auto Repairs',
     metaDescription:
       'Mobile Land Rover and Jaguar specialist in South Jersey. 30+ years, ASE Master certified. Air suspension, timing chains, diagnostics and pre-purchase inspections at your driveway.',
-    h1: 'Land Rover and Jaguar Repair — South Jersey',
+    h1: 'Land Rover and Jaguar Repair in South Jersey',
     intro:
       'British engineering, serviced by somebody who knows its habits. Air suspension, timing chains, cooling systems, and the electronics tying all of it together.',
     opening: [

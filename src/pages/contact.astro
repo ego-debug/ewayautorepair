@@ -3,7 +3,7 @@ import Page from '../layouts/Page.astro';
 import PageIntro from '../components/PageIntro.astro';
 import { PHONE, TEL_HREF, WEB3FORMS_KEY } from '../data/site';
 
-const title = 'Contact — Request a Quote | Eway Auto Repairs';
+const title = 'Contact and Quote Requests | Eway Auto Repairs';
 const description = `Reach the technician directly. Call ${PHONE} or send the year, model, and symptoms. You get a written estimate before any work starts. Mobile European auto repair, South Jersey.`;
 ---
 
@@ -38,11 +38,11 @@ const description = `Reach the technician directly. Call ${PHONE} or send the ye
         data-phone={PHONE}
         novalidate
       >
-        <!-- PLACEHOLDER — create a free Web3Forms access key for service@ewayautorepairs.com
+        <!-- PLACEHOLDER: create a free Web3Forms access key for service@ewayautorepairs.com
              and set WEB3FORMS_KEY in src/data/site.ts. Submissions email to that address;
              enable Web3Forms' SMS/forward options so he actually sees them under a car. -->
         <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
-        <input type="hidden" name="subject" value="Quote request — ewayautorepairs.com" />
+        <input type="hidden" name="subject" value="Quote request from ewayautorepairs.com" />
         <input type="hidden" name="from_name" value="Eway Auto Repairs website" />
         <!-- Honeypot: real users never see or fill this. -->
         <input

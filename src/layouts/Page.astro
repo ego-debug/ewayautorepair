@@ -23,29 +23,86 @@ const { title, description, path, schemas } = Astro.props;
   <CallBar />
 
   <script>
-    // Reveal-on-scroll, staggered by sibling index, once per element.
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const els = document.querySelectorAll<HTMLElement>('[data-reveal]');
-    if (reduced || !('IntersectionObserver' in window)) {
-      els.forEach((el) => el.classList.add('is-in'));
-    } else {
+
+    if (!reduced) {
+      // Reveal on scroll. Tiles stagger faster and in bigger groups than blocks do.
       const io = new IntersectionObserver(
         (entries) => {
-          entries.forEach((e) => {
-            if (!e.isIntersecting) return;
-            const el = e.target as HTMLElement;
-            const sibs = Array.from(el.parentElement?.children ?? []).filter((n) =>
-              n.hasAttribute('data-reveal')
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            const el = entry.target as HTMLElement;
+            const isTile = el.hasAttribute('data-tile');
+            const group = isTile ? '[data-tile]' : '[data-reveal]';
+            const siblings = Array.from(el.parentElement?.children ?? []).filter((n) =>
+              n.matches(group)
             );
-            const i = Math.max(0, sibs.indexOf(el));
-            el.style.animationDelay = `${Math.min(i * 70, 420)}ms`;
+            const i = Math.max(0, siblings.indexOf(el));
+            el.style.animationDelay = `${Math.min(i * (isTile ? 45 : 80), 480)}ms`;
             el.classList.add('is-in');
             io.unobserve(el);
-          });
+          }
         },
         { rootMargin: '0px 0px -8% 0px', threshold: 0.12 }
       );
-      els.forEach((el) => io.observe(el));
+      document
+        .querySelectorAll('[data-reveal],[data-rule],[data-tile]')
+        .forEach((el) => io.observe(el));
+
+      // Hero: the scan line sweeps down, then the headline words wipe up behind it.
+      const line = document.querySelector<HTMLElement>('[data-scanline]');
+      if (line) line.style.animation = 'eway-scan 1.5s cubic-bezier(.4,0,.2,1) .15s 1 forwards';
+
+      document.querySelectorAll<HTMLElement>('[data-word]').forEach((word, i) => {
+        word.style.animationDelay = `${420 + i * 65}ms`;
+        word.classList.add('is-in');
+      });
+
+      // Credential markers breathe out of phase with each other.
+      document.querySelectorAll<HTMLElement>('[data-pip]').forEach((pip, i) => {
+        pip.style.animation = `eway-pip 3.2s ease-in-out ${i * 0.4}s infinite`;
+      });
     }
+
+    // Header state and the read-progress bar track scroll position rather than
+    // animating on their own, so they stay on when motion is reduced. Parallax does not.
+    const header = document.getElementById('site-header');
+    const bar = document.querySelector<HTMLElement>('[data-progress]');
+    const parallax = reduced
+      ? []
+      : Array.from(document.querySelectorAll<HTMLElement>('[data-parallax]'));
+
+    let ticking = false;
+    const frame = () => {
+      ticking = false;
+      const y = window.scrollY;
+
+      header?.classList.toggle('is-scrolled', y > 24);
+
+      if (bar) {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.transform = `scaleX(${max > 0 ? Math.min(1, y / max) : 0})`;
+      }
+
+      for (const el of parallax) {
+        const parent = el.parentElement;
+        if (!parent) continue;
+        const r = parent.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > window.innerHeight + 200) continue;
+        const rate = parseFloat(el.dataset.parallaxRate || '0.12');
+        const mid = r.top + r.height / 2 - window.innerHeight / 2;
+        el.style.transform = `translate3d(0, ${(-mid * rate).toFixed(1)}px, 0)`;
+      }
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(frame);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    frame();
   </script>
 </Base>

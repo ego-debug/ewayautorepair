@@ -1,12 +1,12 @@
 // Single source of truth for business facts.
-// NAP rule: the name and phone strings must be byte-identical everywhere —
+// NAP rule: the name and phone strings must be byte-identical everywhere:
 // site, Google Business Profile, Facebook, invoices. Never "E-Way".
 
-// PLACEHOLDER — replace with the real business number before launch.
+// PLACEHOLDER: replace with the real business number before launch.
 export const PHONE = '(856) 555-0142';
 export const TEL_HREF = 'tel:' + PHONE.replace(/[^0-9+]/g, '');
 
-// PLACEHOLDER — create a free access key at web3forms.com pointed at the
+// PLACEHOLDER: create a free access key at web3forms.com pointed at the
 // business email, then paste it here. The contact form will not send until set.
 export const WEB3FORMS_KEY = '[WEB3FORMS_ACCESS_KEY]';
 
@@ -102,7 +102,7 @@ export const CREDENTIALS = [
   '30+ Years Experience',
 ];
 
-// PLACEHOLDER list — confirm actual coverage with the client before launch.
+// PLACEHOLDER list: confirm actual coverage with the client before launch.
 export const TOWNS = [
   'Cherry Hill',
   'Voorhees',

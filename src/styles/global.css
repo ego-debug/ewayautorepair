@@ -1,4 +1,4 @@
-/* Design tokens — see design/handoff/README.md for the full spec. */
+/* Design tokens: see design/handoff/README.md for the full spec. */
 :root {
   --bg: #0a0a0a;
   --surface-1: #0c0c0c;
@@ -58,7 +58,7 @@ a:hover {
 }
 
 [id] {
-  scroll-margin-top: 80px;
+  scroll-margin-top: 84px;
 }
 
 .container {
@@ -115,13 +115,32 @@ a:hover {
   gap: 26px;
 }
 .site-nav a {
+  position: relative;
   font-size: 14px;
   font-weight: 500;
   color: var(--text-2);
+  padding-bottom: 4px;
   transition: color 0.18s ease;
 }
-.site-nav a:hover {
+.site-nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.28s cubic-bezier(0.22, 0.7, 0.25, 1);
+}
+.site-nav a:hover,
+.site-nav a[aria-current='page'] {
   color: var(--accent);
+}
+.site-nav a:hover::after,
+.site-nav a[aria-current='page']::after {
+  transform: scaleX(1);
 }
 .btn-call {
   flex: none;
@@ -132,12 +151,13 @@ a:hover {
   letter-spacing: 0.01em;
   padding: 11px 18px;
   border-radius: 2px;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 .btn-call:hover {
   background: var(--accent-light);
   color: var(--on-accent);
   transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(238, 96, 2, 0.28);
 }
 
 /* ---------- Hero ---------- */
@@ -219,12 +239,13 @@ a:hover {
   font-weight: 700;
   padding: 16px 26px;
   border-radius: 2px;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 .btn-primary:hover {
   background: var(--accent-light);
   color: var(--on-accent);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(238, 96, 2, 0.3);
 }
 .btn-secondary {
   border: 1px solid var(--border-btn);
@@ -238,6 +259,7 @@ a:hover {
 .btn-secondary:hover {
   border-color: var(--accent);
   color: var(--accent);
+  transform: translateY(-2px);
 }
 
 /* ---------- Trust bar ---------- */
@@ -313,11 +335,12 @@ a:hover {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-2);
-  transition: color 0.2s ease, background 0.2s ease;
+  transition: color 0.2s ease, background 0.2s ease, letter-spacing 0.3s ease;
 }
 .brand-tile:hover {
   color: var(--accent);
   background: #141414;
+  letter-spacing: 0.12em;
 }
 
 /* ---------- Services ---------- */
@@ -328,17 +351,21 @@ a:hover {
   margin-top: 44px;
 }
 .service-card {
+  position: relative;
+  overflow: hidden;
   background: var(--card);
   border: 1px solid var(--border-card);
   border-top: 2px solid var(--accent);
   padding: 30px 26px 34px;
-  transition: background 0.22s ease, border-color 0.22s ease, transform 0.22s ease;
+  transition: background 0.22s ease, border-color 0.22s ease, transform 0.22s ease,
+    box-shadow 0.22s ease;
 }
 .service-card:hover {
   border-color: var(--border-card-hover);
   border-top-color: var(--accent-light);
   background: var(--card-hover);
-  transform: translateY(-3px);
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
 }
 .service-card .num {
   font-size: 12px;
@@ -368,8 +395,17 @@ a:hover {
   margin-top: 48px;
 }
 .step {
-  border-top: 1px solid var(--border-chip);
+  position: relative;
   padding-top: 22px;
+}
+.step .step-rule {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.55;
 }
 .step .numeral {
   font-size: 44px;
@@ -445,11 +481,12 @@ a:hover {
   font-size: 14px;
   font-weight: 500;
   color: var(--text-body);
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 .town-chip:hover {
   border-color: var(--accent);
   color: var(--text);
+  transform: translateY(-2px);
 }
 
 /* ---------- Final CTA band ---------- */
@@ -531,9 +568,11 @@ a:hover {
 .site-footer .col a {
   font-size: 14px;
   color: var(--text-body);
+  transition: color 0.18s ease, transform 0.18s ease;
 }
 .site-footer .col a:hover {
   color: var(--accent-light);
+  transform: translateX(3px);
 }
 .site-footer .legal {
   max-width: 1200px;
@@ -580,19 +619,206 @@ a:hover {
 @keyframes eway-rise {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(22px);
   }
   to {
     opacity: 1;
     transform: none;
   }
 }
+@keyframes eway-word {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes eway-wipe {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes eway-scan {
+  0% {
+    transform: translateY(-10%);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(760px);
+    opacity: 0;
+  }
+}
+@keyframes eway-pip {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+@keyframes eway-kenburns {
+  from {
+    transform: scale(1.04);
+  }
+  to {
+    transform: scale(1.14);
+  }
+}
+
 [data-reveal] {
   opacity: 0;
   will-change: opacity, transform;
 }
 [data-reveal].is-in {
   animation: eway-rise 0.7s cubic-bezier(0.22, 0.7, 0.25, 1) forwards;
+}
+[data-tile] {
+  opacity: 0;
+}
+[data-tile].is-in {
+  animation: eway-rise 0.5s cubic-bezier(0.22, 0.7, 0.25, 1) forwards;
+}
+[data-rule] {
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+[data-rule].is-in {
+  animation: eway-wipe 0.9s cubic-bezier(0.22, 0.7, 0.25, 1) forwards;
+}
+[data-word] {
+  display: inline-block;
+  transform: translateY(105%);
+}
+[data-word].is-in {
+  animation: eway-word 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+[data-kb] {
+  position: absolute;
+  inset: 0;
+  animation: eway-kenburns 24s ease-in-out infinite alternate;
+}
+
+/* Accent rule under a section heading */
+.rule {
+  height: 2px;
+  width: 88px;
+  background: var(--accent);
+  margin-top: 20px;
+  margin-bottom: 4px;
+}
+
+/* Header scroll-progress bar */
+.scroll-progress {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 2px;
+  width: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* Hero parallax layer and scan-line sweep */
+.hero-parallax {
+  position: absolute;
+  inset: -6% 0;
+  will-change: transform;
+}
+.hero-scanline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 107, 0, 0) 0%,
+    rgba(255, 107, 0, 0.85) 50%,
+    rgba(255, 107, 0, 0) 100%
+  );
+  box-shadow: 0 0 24px 4px rgba(255, 107, 0, 0.35);
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* Full-bleed parallax image band */
+.work-band {
+  position: relative;
+  height: min(52vh, 440px);
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.work-band .band-parallax {
+  position: absolute;
+  inset: -8% 0;
+  will-change: transform;
+}
+.work-band .band-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(10, 10, 10, 0.92) 0%,
+    rgba(10, 10, 10, 0.55) 55%,
+    rgba(10, 10, 10, 0.35) 100%
+  );
+}
+.work-band .inner {
+  position: relative;
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+}
+.work-band .quote {
+  margin: 0;
+  max-width: 34ch;
+  font-size: clamp(20px, 3vw, 32px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+/* Ken-burns image frames */
+.media-frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+/* Every ken-burns layer wraps exactly one image that must fill it. */
+[data-kb] img,
+.media-frame img,
+.hero-parallax img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.media-portrait {
+  aspect-ratio: 4 / 5;
+  max-width: 400px;
+  margin-top: 32px;
+}
+.media-wide {
+  aspect-ratio: 16 / 6;
+  margin-top: 44px;
 }
 
 /* ---------- Responsive: single 940px breakpoint ---------- */
@@ -616,10 +842,20 @@ a:hover {
     scroll-behavior: auto;
   }
   [data-reveal],
-  [data-reveal].is-in {
+  [data-reveal].is-in,
+  [data-tile],
+  [data-tile].is-in,
+  [data-rule],
+  [data-rule].is-in,
+  [data-word],
+  [data-word].is-in,
+  [data-kb] {
     opacity: 1 !important;
     transform: none !important;
     animation: none !important;
+  }
+  .hero-scanline {
+    display: none;
   }
   * {
     transition: none !important;
@@ -927,4 +1163,12 @@ button.btn-primary:disabled {
 }
 .phone-first a {
   font-weight: 700;
+}
+
+/* Headline word masks: each word rides up out of a clipped box */
+.word-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.06em;
 }

@@ -2,6 +2,7 @@
 import Page from '../layouts/Page.astro';
 import PageIntro from '../components/PageIntro.astro';
 import CtaBand from '../components/CtaBand.astro';
+import MediaFrame from '../components/MediaFrame.astro';
 import { CREDENTIALS } from '../data/site';
 
 const title = '30+ Years on European Cars | About Eway Auto Repairs';
@@ -21,12 +22,12 @@ const description =
   <section class="section-ruled">
     <div class="section container about-grid">
       <div>
-        <!-- PLACEHOLDER — replace with his real story, in his words (3–4 sentences):
+        <!-- PLACEHOLDER: replace with his real story, in his words (3 or 4 sentences):
              where he trained, what he's worked on, that he owned his own shop,
-             why European cars specifically. Also add a real photo of him working —
-             a face converts far better than a stock engine bay. -->
+             why European cars specifically. A real photo of him working converts far
+             better than a stock engine bay. -->
         <div class="copy">
-          <p>[HIS STORY — 3 or 4 sentences: where he trained, the shop he owned, what he's
+          <p>[HIS STORY: 3 or 4 sentences: where he trained, the shop he owned, what he's
           worked on, and why European cars specifically. Record him telling it and type it
           up close to how he said it. Plain words beat polished copy here, and a real story
           is the one thing on this site nobody can copy.]</p>
@@ -39,12 +40,19 @@ const description =
         </div>
       </div>
       <div>
-        <!-- PLACEHOLDER — swap for a real photo of him with the car, decent lighting -->
-        <div class="credential-list">
+        <!-- PLACEHOLDER: swap for a real photo of him with the car, decent lighting -->
+        <MediaFrame
+          src="/images/portrait-placeholder.svg"
+          shape="portrait"
+          width={800}
+          height={1000}
+          alt=""
+        />
+        <div class="credential-list" style="margin-top:32px">
           {
             CREDENTIALS.map((c) => (
               <div class="credential-row" data-reveal>
-                <span class="square"></span>
+                <span class="square" data-pip></span>
                 <span class="label">{c}</span>
               </div>
             ))
@@ -68,7 +76,7 @@ const description =
         </div>
         <div class="failure-item" data-reveal>
           <h3>Factory-Trained</h3>
-          <p>[BRANDS — list which manufacturers' factory training he completed]</p>
+          <p>[BRANDS: list which manufacturers' factory training he completed]</p>
         </div>
         <div class="failure-item" data-reveal>
           <h3>NJ Certified Emission Repair Technician</h3>

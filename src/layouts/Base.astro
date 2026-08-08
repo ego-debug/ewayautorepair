@@ -34,6 +34,24 @@ const canonical = path === '/' ? `${DOMAIN}/` : `${DOMAIN}${path}`;
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="Eway Auto Repairs" />
     {schemas.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+    <noscript>
+      <style>
+        /* Reveal animations start at opacity 0 and are switched on by script.
+           Without JS the page would read as blank, so show everything instead. */
+        [data-reveal],
+        [data-tile],
+        [data-rule],
+        [data-word],
+        [data-kb] {
+          opacity: 1 !important;
+          transform: none !important;
+          animation: none !important;
+        }
+        .hero-scanline {
+          display: none;
+        }
+      </style>
+    </noscript>
   </head>
   <body>
     <slot />
