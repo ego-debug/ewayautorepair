@@ -3,41 +3,37 @@ import Page from '../layouts/Page.astro';
 import CtaBand from '../components/CtaBand.astro';
 import WorkBand from '../components/WorkBand.astro';
 import MediaFrame from '../components/MediaFrame.astro';
+import Readout from '../components/Readout.astro';
+import Marquee from '../components/Marquee.astro';
+import StatStrip from '../components/StatStrip.astro';
 import { businessSchema } from '../data/schema';
-import {
-  PHONE,
-  TEL_HREF,
-  BRANDS,
-  SERVICES,
-  STEPS,
-  CREDENTIALS,
-  TOWNS,
-} from '../data/site';
+import { PHONE, TEL_HREF, BRANDS, SERVICES, STEPS, CREDENTIALS, TOWNS } from '../data/site';
 import { BRAND_PAGES } from '../data/brands';
 
 const title = 'European Auto Repair in South Jersey | Eway Auto Repairs';
 const description = `Mobile European car specialist serving South Jersey. 30+ years, ASE Master certified. BMW, Mercedes, Audi, Porsche, Land Rover and more. I come to you. Call ${PHONE}.`;
 
-// The headline animates word by word, so it ships as words rather than a string.
+// The headline animates a word at a time, so it ships as words.
 const HEADLINE = [
   { text: 'European', accent: false },
   { text: 'Auto', accent: false },
-  { text: 'Repair', accent: false },
-  { text: 'That', accent: false },
-  { text: 'Comes', accent: true },
-  { text: 'to', accent: true },
-  { text: 'You', accent: true },
+  { text: 'Repair,', accent: false },
+  { text: 'In', accent: true },
+  { text: 'Your', accent: true },
+  { text: 'Driveway', accent: true },
 ];
 
-const brandHrefs = new Map(BRAND_PAGES.flatMap((b) => {
-  if (b.slug === 'audi-volkswagen') {
-    return [['Audi', '/brands/audi-volkswagen'], ['Volkswagen', '/brands/audi-volkswagen']];
-  }
-  if (b.slug === 'land-rover-jaguar') {
-    return [['Land Rover', '/brands/land-rover-jaguar'], ['Jaguar', '/brands/land-rover-jaguar']];
-  }
-  return [[b.name, `/brands/${b.slug}`]];
-}));
+const brandHrefs = new Map(
+  BRAND_PAGES.flatMap((b) => {
+    if (b.slug === 'audi-volkswagen') {
+      return [['Audi', '/brands/audi-volkswagen'], ['Volkswagen', '/brands/audi-volkswagen']];
+    }
+    if (b.slug === 'land-rover-jaguar') {
+      return [['Land Rover', '/brands/land-rover-jaguar'], ['Jaguar', '/brands/land-rover-jaguar']];
+    }
+    return [[b.name, `/brands/${b.slug}`]];
+  })
+);
 
 const serviceHref = (s: (typeof SERVICES)[number]) =>
   s.anchor === 'ppi' ? '/pre-purchase-inspection' : `/services#${s.anchor}`;
@@ -62,65 +58,76 @@ const serviceHref = (s: (typeof SERVICES)[number]) =>
     </div>
     <div class="hero-scrim"></div>
     <div class="hero-scanline" data-scanline></div>
+
     <div class="hero-content">
-      <div class="eyebrow-badge" data-reveal>MOBILE SERVICE · SOUTH JERSEY</div>
-      <h1>
-        {
-          HEADLINE.map((word) => (
-            <span class="word-mask">
-              <span data-word class:list={[word.accent && 'accent']}>{word.text}&nbsp;</span>
-            </span>
-          ))
-        }
-      </h1>
-      <p class="subhead" data-reveal>
-        30+ years of factory-level European experience, serving South Jersey. ASE Master
-        Technician. Dealer capability without dealer pricing.
-      </p>
-      <div class="hero-ctas" data-reveal>
-        <a href={TEL_HREF} class="btn-primary">Call {PHONE}</a>
-        <a href="/contact" class="btn-secondary">Request a Quote</a>
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow-badge" data-reveal>MOBILE SERVICE · SOUTH JERSEY</div>
+          <h1>
+            {
+              HEADLINE.map((word) => (
+                <span class="word-mask">
+                  <span data-word class:list={[word.accent && 'accent']}>
+                    {word.text}&nbsp;
+                  </span>
+                </span>
+              ))
+            }
+          </h1>
+          <p class="subhead" data-reveal>
+            I have spent thirty years on these cars, and I bring the same scan tools the
+            dealer runs to wherever yours is parked. You talk to me the whole way through,
+            not a service writer.
+          </p>
+          <div class="hero-ctas" data-reveal>
+            <a href={TEL_HREF} class="btn-primary">Call {PHONE}</a>
+            <a href="/contact" class="btn-secondary">Request a Quote</a>
+          </div>
+          <p class="hero-creds" data-reveal>
+            ASE Master Technician <span>/</span> ASE L1 Advanced Engine Performance
+            <span>/</span> NJ Emission Repair Licensed
+          </p>
+        </div>
+
+        <Readout />
       </div>
     </div>
   </section>
 
-  <!-- Trust bar -->
-  <section class="trust-bar" aria-label="Why customers trust us">
-    <div class="grid">
-      <div class="item" data-reveal>30+ Years Experience</div>
-      <div class="item" data-reveal>ASE Master Certified</div>
-      <div class="item" data-reveal>Mobile. I Come to You</div>
-      <div class="item" data-reveal>Written Estimates, Always</div>
-    </div>
-  </section>
+  <Marquee />
+  <StatStrip />
 
   <!-- Brands -->
-  <section id="brands" class="section container">
-    <h2 data-reveal>We only work on European cars.</h2>
-    <div class="rule" data-rule></div>
-    <p class="section-intro" data-reveal>
-      Thirty years on the same platforms means I've usually seen your car's problem before,
-      probably more than once. That's why the diagnosis is right the first time.
-    </p>
-    <div class="brand-grid">
-      {
-        BRANDS.map((brand) =>
-          brandHrefs.has(brand) ? (
-            <a class="brand-tile" href={brandHrefs.get(brand)} data-tile>
-              {brand}
-            </a>
-          ) : (
-            <div class="brand-tile" data-tile>
-              {brand}
-            </div>
+  <section id="brands" class="section-indexed">
+    <span class="section-index" aria-hidden="true">01</span>
+    <div class="section container">
+      <h2 data-reveal>We only work on European cars.</h2>
+      <div class="rule" data-rule></div>
+      <p class="section-intro" data-reveal>
+        Thirty years on the same platforms means I have usually seen your car's problem
+        before, probably more than once. That is why the diagnosis is right the first time.
+      </p>
+      <div class="brand-grid">
+        {
+          BRANDS.map((brand) =>
+            brandHrefs.has(brand) ? (
+              <a class="brand-tile" href={brandHrefs.get(brand)} data-tile>
+                {brand}
+              </a>
+            ) : (
+              <div class="brand-tile" data-tile>
+                {brand}
+              </div>
+            )
           )
-        )
-      }
+        }
+      </div>
     </div>
   </section>
 
   <!-- Services -->
-  <section id="services" class="section-alt">
+  <section id="services" class="section-alt section-indexed">
+    <span class="section-index" aria-hidden="true">02</span>
     <div class="section container">
       <div class="eyebrow" data-reveal>Services</div>
       <h2 data-reveal>What I do in your driveway.</h2>
@@ -128,7 +135,7 @@ const serviceHref = (s: (typeof SERVICES)[number]) =>
       <div class="service-grid">
         {
           SERVICES.map((s) => (
-            <a class="service-card" href={serviceHref(s)} data-reveal>
+            <a class="service-card" href={serviceHref(s)} data-reveal data-spotlight>
               <div class="num">{s.num}</div>
               <h3>{s.title}</h3>
               <p>{s.body}</p>
@@ -142,7 +149,8 @@ const serviceHref = (s: (typeof SERVICES)[number]) =>
   <WorkBand quote="The shop comes to your driveway. Same tools I'd have in a bay, and nobody has to tow anything." />
 
   <!-- How it works -->
-  <section class="section-ruled">
+  <section class="section-ruled section-indexed">
+    <span class="section-index" aria-hidden="true">03</span>
     <div class="section container">
       <div class="eyebrow" data-reveal>How It Works</div>
       <h2 data-reveal>Four steps, no surprises.</h2>
@@ -163,16 +171,17 @@ const serviceHref = (s: (typeof SERVICES)[number]) =>
   </section>
 
   <!-- About / credentials -->
-  <section id="about" class="section-alt">
+  <section id="about" class="section-alt section-indexed">
+    <span class="section-index" aria-hidden="true">04</span>
     <div class="section container about-grid">
       <div>
         <div class="eyebrow" data-reveal>Credentials</div>
         <h2 data-reveal>One technician. Every job.</h2>
         <div class="rule" data-rule></div>
         <p class="lede" data-reveal>
-          Whoever answers the phone is the same person who diagnoses your car and does the work
-          on it. Nothing gets handed to an apprentice, and nothing gets billed that wasn't on
-          the estimate. <a href="/about">More about me</a>.
+          Whoever answers the phone is the same person who diagnoses your car and does the
+          work on it. Nothing gets handed to an apprentice, and nothing gets billed that
+          wasn't on the estimate. <a href="/about">More about me</a>.
         </p>
         <MediaFrame
           src="/images/portrait-placeholder.svg"
@@ -186,7 +195,7 @@ const serviceHref = (s: (typeof SERVICES)[number]) =>
         {
           CREDENTIALS.map((c) => (
             <div class="credential-row" data-reveal>
-              <span class="square" data-pip></span>
+              <span class="square" data-pip />
               <span class="label">{c}</span>
             </div>
           ))
@@ -196,7 +205,8 @@ const serviceHref = (s: (typeof SERVICES)[number]) =>
   </section>
 
   <!-- Service area -->
-  <section id="area" class="section-ruled">
+  <section id="area" class="section-ruled section-indexed">
+    <span class="section-index" aria-hidden="true">05</span>
     <div class="section container">
       <div class="eyebrow" data-reveal>Service Area</div>
       <h2 data-reveal>South Jersey, driveway to driveway.</h2>

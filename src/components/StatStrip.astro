@@ -1,0 +1,56 @@
+---
+const STATS = [
+  { n: 30, suffix: '+', label: 'Years on European cars, and nothing else' },
+  { n: 12, suffix: '', label: 'Marques serviced, from BMW to Alfa Romeo' },
+  { n: 1, suffix: '', label: 'Technician, from the phone call to the invoice' },
+  { n: 0, suffix: '', label: 'Trips to a shop. I work where the car is parked' },
+];
+---
+
+<section class="stat-strip" aria-label="Eway Auto Repairs by the numbers">
+  <div class="grid">
+    {
+      STATS.map((s) => (
+        <div class="stat" data-reveal>
+          <div class="n" data-count={s.n} data-suffix={s.suffix}>
+            {s.n}
+            {s.suffix}
+          </div>
+          <div class="l">{s.label}</div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<script>
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const nums = document.querySelectorAll<HTMLElement>('[data-count]');
+
+  if (nums.length && !reduced) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const el = entry.target as HTMLElement;
+          const target = Number(el.dataset.count ?? 0);
+          const suffix = el.dataset.suffix ?? '';
+          const started = performance.now();
+          const dur = 900;
+
+          const tick = (now: number) => {
+            const t = Math.min(1, (now - started) / dur);
+            // Ease out so it settles rather than stopping dead.
+            const eased = 1 - Math.pow(1 - t, 3);
+            el.textContent = `${Math.round(target * eased)}${suffix}`;
+            if (t < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+          io.unobserve(el);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    nums.forEach((n) => io.observe(n));
+  }
+</script>

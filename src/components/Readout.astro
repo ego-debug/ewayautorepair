@@ -1,0 +1,72 @@
+---
+// A real diagnostic trace on a real engine. The point it makes: the codes say
+// "lean", the cheap read is turbos, and the actual fault is a $200 pipe. That
+// is the whole argument for hiring someone who knows the platform.
+// Verify the specifics with the technician before launch, same as the brand pages.
+const LINES: ({ k: string; v: string; s?: string; code?: boolean } | { sep: true })[] = [
+  { k: 'CONNECT ECU', v: 'OK', s: 'ok' },
+  { k: 'VEHICLE', v: '2011 335i · N54' },
+  { k: 'FAULT MEMORY', v: '3 STORED', s: 'warn' },
+  { sep: true },
+  { k: 'P0171', v: 'SYS TOO LEAN B1', code: true },
+  { k: 'P0174', v: 'SYS TOO LEAN B2', code: true },
+  { k: '2FBF', v: 'BOOST DEVIATION', code: true },
+  { sep: true },
+  { k: 'FUEL TRIM', v: '+24%', s: 'warn' },
+  { k: 'BOOST ACTUAL', v: '-4.2 psi', s: 'warn' },
+  { k: 'SMOKE TEST', v: 'LEAK FOUND', s: 'warn' },
+];
+---
+
+<div class="readout" data-readout>
+  <div class="readout-head">
+    <span class="readout-title">Eway Diagnostic</span>
+    <span class="readout-live"><i></i> Live</span>
+  </div>
+
+  {
+    LINES.map((line) =>
+      'sep' in line ? (
+        <div class="readout-sep readout-line"></div>
+      ) : (
+        <div class:list={['readout-row', 'readout-line', line.code && 'readout-code']}>
+          <span class="k">{line.k}</span>
+          <span class:list={['v', line.s]}>{line.v}</span>
+        </div>
+      )
+    )
+  }
+
+  <div class="readout-sep readout-line"></div>
+  <p class="readout-verdict readout-line">
+    Split <span class="hit">charge pipe</span>. Not the turbochargers.<span class="readout-caret"
+    ></span>
+  </p>
+</div>
+
+<script>
+  // Play the trace once the panel is on screen, then leave it up.
+  const panel = document.querySelector<HTMLElement>('[data-readout]');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (panel && !reduced) {
+    const lines = Array.from(panel.querySelectorAll<HTMLElement>('.readout-line'));
+    const play = () => {
+      lines.forEach((line, i) => {
+        line.style.animationDelay = `${600 + i * 130}ms`;
+        line.classList.add('is-in');
+      });
+    };
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          play();
+          io.disconnect();
+        }
+      },
+      { threshold: 0.25 }
+    );
+    io.observe(panel);
+  }
+</script>

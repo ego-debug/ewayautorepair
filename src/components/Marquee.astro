@@ -1,0 +1,20 @@
+---
+import { BRANDS } from '../data/site';
+
+// Duplicated once so the track can loop seamlessly at -50%.
+const run = [...BRANDS, 'European Specialist', 'Mobile Service', 'South Jersey'];
+const track = [...run, ...run];
+---
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    {
+      track.map((item) => (
+        <>
+          <span>{item}</span>
+          <span class="dot">/</span>
+        </>
+      ))
+    }
+  </div>
+</div>

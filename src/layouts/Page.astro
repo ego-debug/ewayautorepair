@@ -15,6 +15,7 @@ const { title, description, path, schemas } = Astro.props;
 ---
 
 <Base title={title} description={description} path={path} schemas={schemas}>
+  <div class="grain" aria-hidden="true"></div>
   <Header />
   <main>
     <slot />
@@ -104,5 +105,16 @@ const { title, description, path, schemas } = Astro.props;
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
     frame();
+
+    // Cursor spotlight on cards. Pointer-only, so it never fires on touch.
+    if (!reduced && window.matchMedia('(hover: hover)').matches) {
+      for (const card of document.querySelectorAll<HTMLElement>('[data-spotlight]')) {
+        card.addEventListener('pointermove', (e) => {
+          const r = card.getBoundingClientRect();
+          card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+          card.style.setProperty('--my', `${e.clientY - r.top}px`);
+        });
+      }
+    }
   </script>
 </Base>

@@ -163,9 +163,9 @@ a:hover {
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
-  min-height: min(86vh, 760px);
+  min-height: min(94vh, 880px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   overflow: hidden;
   border-bottom: 1px solid var(--border);
 }
@@ -195,7 +195,7 @@ a:hover {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 120px 20px 76px;
+  padding: 132px 20px 96px;
 }
 .eyebrow-badge {
   display: inline-block;
@@ -209,8 +209,8 @@ a:hover {
 }
 .hero h1 {
   margin: 0;
-  max-width: 16ch;
-  font-size: clamp(38px, 7vw, 74px);
+  max-width: 15ch;
+  font-size: clamp(36px, 5.4vw, 64px);
   font-weight: 800;
   line-height: 1.02;
   letter-spacing: -0.03em;
@@ -320,11 +320,23 @@ a:hover {
 /* ---------- Brands ---------- */
 .brand-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  /* 12 marques. These counts all divide 12 evenly so the last row is never
+     a part-empty strip of exposed grid background. */
+  grid-template-columns: repeat(6, 1fr);
   gap: 1px;
   background: var(--border);
   border: 1px solid var(--border);
   margin-top: 40px;
+}
+@media (max-width: 940px) {
+  .brand-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (max-width: 560px) {
+  .brand-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 .brand-tile {
   background: var(--tile);
@@ -1177,4 +1189,312 @@ button.btn-primary:disabled {
   overflow: hidden;
   vertical-align: bottom;
   padding-bottom: 0.06em;
+}
+
+/* ==========================================================================
+   Character layer: texture, live readout, marquee, counters, spotlight.
+   Everything here degrades to a static, readable state without motion.
+   ========================================================================== */
+
+/* Film grain. Kills the flat-template look without touching contrast. */
+.grain {
+  position: fixed;
+  inset: -50%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.js-motion .grain {
+  animation: grain-shift 6s steps(6) infinite;
+}
+@keyframes grain-shift {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-3%, 2%); }
+  40% { transform: translate(2%, -3%); }
+  60% { transform: translate(-2%, -2%); }
+  80% { transform: translate(3%, 1%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Hero becomes two columns: copy left, diagnostic readout right. */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: clamp(32px, 4vw, 56px);
+  align-items: center;
+}
+@media (max-width: 940px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+}
+
+/* ---------- Live diagnostic readout ---------- */
+.readout {
+  position: relative;
+  background: rgba(8, 8, 8, 0.82);
+  border: 1px solid #232323;
+  border-top: 2px solid var(--accent);
+  padding: 20px 22px 22px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: var(--text-2);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+.readout-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid #1c1c1c;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+}
+.readout-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+.readout-live {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+}
+.readout-live i {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  flex: none;
+}
+.js-motion .readout-live i {
+  animation: eway-pip 1.6s ease-in-out infinite;
+}
+.readout-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  white-space: nowrap;
+}
+.readout-row .k {
+  color: var(--text-faint);
+}
+.readout-row .v {
+  color: var(--text-strong-2);
+}
+.readout-row .v.ok {
+  color: #6fbf73;
+}
+.readout-row .v.warn {
+  color: var(--accent);
+}
+.readout-code .k {
+  color: var(--accent);
+  font-weight: 700;
+}
+.readout-sep {
+  border-top: 1px dashed #1f1f1f;
+  margin: 12px 0;
+}
+.readout-verdict {
+  margin-top: 4px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  white-space: normal;
+  line-height: 1.5;
+}
+.readout-verdict .hit {
+  color: var(--accent);
+}
+/* Lines are hidden only while the sequence is actually going to play. */
+.js-motion .readout-line {
+  opacity: 0;
+}
+.readout-line.is-in {
+  animation: eway-rise 0.4s cubic-bezier(0.22, 0.7, 0.25, 1) forwards;
+}
+.readout-caret {
+  display: inline-block;
+  width: 7px;
+  height: 1em;
+  background: var(--accent);
+  vertical-align: -0.15em;
+  margin-left: 3px;
+}
+.js-motion .readout-caret {
+  animation: caret 1s steps(2) infinite;
+}
+@keyframes caret {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+/* ---------- Brand marquee ---------- */
+.marquee {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  padding: 14px 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  width: max-content;
+}
+.js-motion .marquee-track {
+  animation: marquee 46s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+.marquee span {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #5a5a56;
+  white-space: nowrap;
+}
+.marquee span.dot {
+  color: var(--accent);
+  letter-spacing: 0;
+}
+
+/* ---------- Stat strip with counters ---------- */
+.stat-strip {
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-2);
+}
+.stat-strip .grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+.stat {
+  padding: 34px 24px 34px 0;
+}
+.stat .n {
+  font-size: clamp(34px, 4.4vw, 50px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.stat .l {
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--text-muted);
+  max-width: 22ch;
+}
+
+/* ---------- Cursor spotlight on service cards ---------- */
+.service-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 107, 0, 0.13),
+    transparent 62%
+  );
+}
+.service-card:hover::before {
+  opacity: 1;
+}
+.service-card .num {
+  transition: color 0.22s ease;
+}
+.service-card:hover .num {
+  color: var(--accent);
+}
+
+/* ---------- Oversized section index numeral ---------- */
+.section-index {
+  position: absolute;
+  top: clamp(28px, 5vw, 56px);
+  right: 20px;
+  font-size: clamp(64px, 11vw, 150px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: #101010;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+.has-index {
+  position: relative;
+  overflow: hidden;
+}
+.has-index > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-motion .readout-line,
+  .readout-line {
+    opacity: 1 !important;
+  }
+  .js-motion .marquee-track,
+  .js-motion .grain,
+  .js-motion .readout-caret,
+  .js-motion .readout-live i {
+    animation: none !important;
+  }
+}
+
+/* Credential line under the hero CTAs */
+.hero-creds {
+  margin: 26px 0 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.9;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  max-width: 46ch;
+}
+.hero-creds span {
+  color: var(--accent);
+  margin: 0 6px;
+}
+
+/* Sections that carry an oversized index numeral */
+.section-indexed {
+  position: relative;
+  overflow: hidden;
+}
+.section-indexed > .section {
+  position: relative;
+  z-index: 1;
 }
