@@ -22,8 +22,8 @@ const detailed = [
     num: '01',
     title: 'Diagnostics',
     paras: [
-      'Check engine lights, intermittent faults, electrical gremlins, and the problems another shop gave up on. I run factory-level scan capability — full-module access, live data, guided tests — not a generic code reader from the parts store.',
-      'A fault code is where diagnosis starts, not where it ends. The code tells you which circuit complained; thirty years on these platforms tells you which part on your specific engine actually causes that complaint. That difference is why I fix cars other shops throw parts at.',
+      'Check engine lights, intermittent faults, electrical problems, and the cars another shop already gave up on. I run factory-level scan capability: full module access, live data, guided tests. A parts store code reader tells you a circuit complained and nothing past that.',
+      "A code is where the diagnosis starts. It points at the circuit that reported a problem, which is rarely the same thing as the part that caused it. Thirty years on these platforms is what fills in that gap, and it's why I end up fixing cars that have already had parts thrown at them.",
     ],
   },
   {
@@ -31,8 +31,8 @@ const detailed = [
     num: '02',
     title: 'Scheduled Maintenance',
     paras: [
-      'Oil and filters, brake fluid, coolant, spark plugs, belts, transmission services — done to the manufacturer schedule with the correct approved fluids. European engines are specific about oil approvals, and "close enough" is how engines sludge up.',
-      'I also service the things the maintenance display pretends do not exist: the "lifetime" transmission fluids, the Haldex couplings, the brake fluid nobody flushes. The cars that reach 200k are the ones that got these done.',
+      'Oil and filters, brake fluid, coolant, spark plugs, belts, transmission services. Done on the manufacturer schedule with fluids the engine is approved for. European engines are specific about oil approvals, and close enough is how they sludge up.',
+      "I also do the things the maintenance display pretends don't exist. Lifetime transmission fluid, Haldex couplings, brake fluid that nobody ever flushes. The cars that make it to 200,000 miles are the ones that got those done.",
     ],
   },
   {
@@ -40,8 +40,8 @@ const detailed = [
     num: '03',
     title: 'Brakes & Suspension',
     paras: [
-      'Pads, rotors, wear sensors, control arms, bushings, struts, and sway bar links — correct parts, correct torque, correct procedure. Modern European cars need their electronic parking brakes retracted and reset with a scan tool, and wear sensors replaced, not bent out of the way.',
-      'On suspension I tell you what is actually worn versus what a lift-and-shake inspection flags to pad an estimate. Bushings crack cosmetically long before they fail functionally; you will get the honest version.',
+      'Pads, rotors, wear sensors, control arms, bushings, struts, sway bar links. Most modern European cars need the electronic parking brake retracted with a scan tool before the rear pads will come off, and the wear sensors replaced rather than bent out of the way and ignored.',
+      "On suspension I'll tell you what is worn versus what turns up on a lift-and-shake inspection to fill out an estimate. Bushings crack on the outside long before they stop doing their job, and plenty of quotes don't bother with that distinction.",
     ],
   },
   {
@@ -49,8 +49,8 @@ const detailed = [
     num: '04',
     title: 'Coding & Programming',
     paras: [
-      'Module coding, adaptations, retrofits, and service resets that most independent shops cannot touch. Battery registration on BMWs, component protection on VW-Audi, injector coding, feature enabling — the software side of a modern European car is half the job.',
-      'This matters most after a repair: a new battery, module, or component often needs to be introduced to the car properly, or you inherit electrical gremlins that get blamed on everything else.',
+      'Module coding, adaptations, retrofits, and service resets that most independent shops cannot do. Battery registration on BMWs, component protection on VW and Audi, injector coding, enabling equipment the car was built with but never had switched on. The software side of a modern European car is half the work.',
+      'It matters most right after a repair. A new battery, a replacement module, or a new component usually has to be introduced to the car properly. Skip that step and you inherit electrical faults that get blamed on everything else for the next two years.',
     ],
   },
   {
@@ -58,8 +58,8 @@ const detailed = [
     num: '05',
     title: 'Second Opinions',
     paras: [
-      'Got a dealer quote that doesn’t feel right? Bring it to me. I’ll look at the car, tell you what it actually needs, what can safely wait, and what on the quote is padding.',
-      'Most of the time the repair is smaller than what was quoted. Sometimes it isn’t — and then you at least know the big quote is real before you spend it.',
+      "Got an estimate that doesn't sit right with you? Bring it over. I'll look at the car and tell you what it needs, what can wait, and what on that sheet is padding.",
+      "Usually the repair is smaller than the quote. Sometimes it isn't, and then at least you know the number is real before you spend it.",
     ],
   },
 ];
@@ -69,9 +69,9 @@ const detailed = [
   <PageIntro eyebrow="Services">
     <Fragment slot="title">What I do in your <span class="accent">driveway</span>.</Fragment>
     <Fragment slot="intro">
-      Diagnostics, maintenance, and repair for European cars — at your home or workplace,
-      anywhere in the South Jersey service area. Written estimate before any work, itemized
-      invoice after.
+      Diagnostics, maintenance, and repair for European cars, at your home or your workplace,
+      anywhere in the South Jersey service area. Written estimate before the work, itemized
+      invoice after it.
     </Fragment>
   </PageIntro>
 
@@ -96,12 +96,12 @@ const detailed = [
         <h2 data-reveal>Pre-Purchase Inspections</h2>
         <div class="copy">
           <p>
-            Buying a used European car? I inspect it before you commit — at the seller's
-            location. Full module scan, mechanical inspection, photos, and a straight answer on
-            whether to buy. The cheapest money you'll ever spend on a car.
+            Buying a used European car? I inspect it where it sits, before you commit. Full
+            module scan, mechanical inspection, photos, and a straight answer on whether to buy
+            it. The cheapest money you will ever spend on a car.
           </p>
           <p>
-            <a href="/pre-purchase-inspection">Everything that's included in a PPI →</a>
+            <a href="/pre-purchase-inspection">Everything that's included in an inspection</a>
           </p>
         </div>
       </div>
@@ -132,10 +132,10 @@ const detailed = [
       </div>
       <div class="copy" style="margin-top:44px">
         <p>
-          That process isn't marketing — it's how New Jersey says auto repair should work, and
-          it's how I've always worked: a written estimate before anything is taken apart,
-          written authorization, and an itemized invoice separating parts and labor. Call
-          <a href={TEL_HREF}>{PHONE}</a> and it starts with a conversation, not a commitment.
+          New Jersey requires a written estimate before the work starts, written authorization
+          with the odometer reading on it, and an itemized invoice that separates parts from
+          labor. I worked that way before it was a rule. Call <a href={TEL_HREF}>{PHONE}</a> and
+          we start with a conversation about what the car is doing.
         </p>
       </div>
     </div>

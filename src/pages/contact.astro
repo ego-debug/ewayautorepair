@@ -4,15 +4,15 @@ import PageIntro from '../components/PageIntro.astro';
 import { PHONE, TEL_HREF, WEB3FORMS_KEY } from '../data/site';
 
 const title = 'Contact — Request a Quote | Eway Auto Repairs';
-const description = `Reach the technician directly. Call ${PHONE} or send the year, model, and symptoms — you'll get a written estimate before any work starts. Mobile European auto repair, South Jersey.`;
+const description = `Reach the technician directly. Call ${PHONE} or send the year, model, and symptoms. You get a written estimate before any work starts. Mobile European auto repair, South Jersey.`;
 ---
 
 <Page title={title} description={description} path="/contact">
   <PageIntro eyebrow="Contact">
     <Fragment slot="title">Talk to the <span class="accent">technician</span>.</Fragment>
     <Fragment slot="intro">
-      No service writer, no phone tree. Describe what the car is doing and you'll get a
-      straight answer about what it probably is and what it costs to find out for sure.
+      No service writer, no phone tree. Tell me what the car is doing and I'll tell you what
+      it probably is and what it costs to find out for certain.
     </Fragment>
   </PageIntro>
 
@@ -25,8 +25,8 @@ const description = `Reach the technician directly. Call ${PHONE} or send the ye
 
       <h2 style="margin-top:56px" data-reveal>Or send the details</h2>
       <p class="section-intro">
-        Most problems narrow down fast with the year, model, and a plain description of the
-        symptom.
+        Most problems narrow down fast once I have the year, the model, and a plain
+        description of what it's doing.
       </p>
 
       <form
@@ -83,7 +83,7 @@ const description = `Reach the technician directly. Call ${PHONE} or send the ye
             id="f-symptoms"
             name="symptoms"
             required
-            placeholder="Check engine light, rattle on cold start, dealer quote you want a second opinion on — plain words are fine."></textarea>
+            placeholder="Check engine light, rattle on cold start, an estimate you want a second opinion on. Plain words are fine."></textarea>
         </div>
         <div class="form-field wide">
           <label for="f-source">How'd you hear about us?</label>
@@ -133,13 +133,13 @@ const description = `Reach the technician directly. Call ${PHONE} or send the ye
           form.reset();
           status.className = 'form-status ok';
           status.textContent =
-            "Got it. You'll hear back as soon as I'm out from under a car — usually the same day.";
+            "Got it. I'll get back to you as soon as I'm out from under a car, usually the same day.";
         } else {
           throw new Error(data.message || 'Submission failed');
         }
       } catch {
         status.className = 'form-status err';
-        status.innerHTML = `Something glitched sending the form — call or text instead: <a href="${form.dataset.tel}">${form.dataset.phone}</a>`;
+        status.innerHTML = `That didn't send. Call or text instead: <a href="${form.dataset.tel}">${form.dataset.phone}</a>`;
       } finally {
         btn.disabled = false;
       }
