@@ -5,3 +5,9 @@ dist/
 
 # Vercel adapter build output
 .vercel/
+
+# Secrets. Never commit these. Real values live here locally and in the
+# Vercel dashboard for production.
+.env
+.env.*
+!.env.example
