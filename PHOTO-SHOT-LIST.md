@@ -4,11 +4,17 @@ Every image the site needs, in priority order. Right now all of them are dark
 placeholder graphics, and they are the single biggest thing holding the site back
 from looking like a real business.
 
-**The rule that matters more than any technical note below:** no stock photography.
-No smiling people in polo shirts, no generic engine bays pulled off the internet. A
-slightly imperfect real photo of him working beats a perfect stock photo every time,
-because customers can tell the difference and it is the whole reason they trust a
-one-man operation over a chain.
+**Two rules that matter more than any technical note below.**
+
+No stock photography. No smiling people in polo shirts, no generic engine bays pulled
+off the internet. A slightly imperfect real photo of an actual job beats a perfect
+stock photo every time, because customers can tell the difference.
+
+No faces and no names. Eway is being built as a brand rather than a personal one. That
+is a workable decision, but it moves all the weight onto the work itself: hands,
+tools, screens, failed parts and the van have to carry the trust that a portrait would
+normally carry. Every shot below is framed with that in mind. Hands and forearms are
+fine. Anything with a head in it is not.
 
 **A phone is fine.** A recent iPhone or Android in good light will outperform a bad
 DSLR photo. Shoot in landscape unless the shot is marked portrait. Wipe the lens
@@ -28,24 +34,26 @@ works better than a clean simple one. Avoid anything with a visible manufacturer
 badge front and center, for the trademark reasons in the brief.
 **Needs:** 1 image, at least 2000px wide.
 
-### 2. Him, working
-**Where:** the About page and the credentials block on the homepage. Portrait orientation.
-**Shot:** him beside or leaning into a customer's car, doing something real. Hands on
-a tool, looking at the car rather than the camera.
-**Notes:** this is the highest converting image on the entire site. For a mobile
-mechanic coming to your house, people want to see who is showing up. Not a selfie,
-not posed in front of a wall, and not wearing sunglasses. Have someone else take it
-while he actually works. Late afternoon light outdoors is very forgiving.
-**Needs:** 3 or 4 options so there is something to choose from. Portrait orientation.
+### 2. The vertical craft shot
+**Where:** the tall frame beside the credentials on the homepage and the About page.
+**Shot:** gloved hands on a tool, the scan tool mid-job with real data on screen, or
+the open tool chest. Portrait orientation.
+**Notes:** this slot was originally designed for a photo of him. He does not want his
+face or name on the site, so it becomes a craft shot instead. That works, but only if
+it looks like a real job rather than a posed still life. Shoot it while actually
+working, hands in frame, cropped at the forearms.
+**Needs:** 4 or 5 options.
 
 ### 3. The driveway shot
 **Where:** the wide band across the middle of the homepage, with the quote about the
 shop coming to your driveway.
-**Shot:** wide landscape of him working on a car in an actual residential driveway,
-tools laid out, van visible if possible.
-**Notes:** this is the one image that proves the entire business model in a glance.
-It needs to obviously be a house, not a shop. Leave empty space on the right side of
-the frame, because text sits over the left third.
+**Shot:** wide landscape of a car with the hood up in an actual residential driveway,
+tools laid out on a mat, work lamp on, van visible if possible.
+**Notes:** this is the one image that proves the entire business model in a glance,
+and with no portrait on the site it is now carrying the most weight of any photo here.
+It needs to obviously be a house, not a shop. If a person is in frame at all, shoot
+from behind or crop at the shoulders. Leave the left third of the frame emptier,
+because the text sits over it.
 **Needs:** 1 image, at least 2000px wide.
 
 ### 4. The van
@@ -94,6 +102,8 @@ technical, no people. Useful filler that still says something.
   eventually illustrate the individual town pages.
 - **Customer cars, with permission:** a nicely presented finished car. Get permission in
   writing, and do not show license plates.
+- **The lettered van:** once the van carries the Eway wordmark, reshoot it. For a brand
+  with no face, the van becomes the closest thing the business has to one.
 
 ---
 
@@ -124,7 +134,7 @@ without. This is the cheapest marketing available and it costs about a minute a 
 | Photo | File to replace |
 |---|---|
 | Hero background | `public/images/hero-placeholder.svg` |
-| Him, working | `public/images/portrait-placeholder.svg` |
+| Vertical craft shot | `public/images/portrait-placeholder.svg` |
 | Driveway shot | `public/images/workband-placeholder.svg` |
 | The van | `public/images/van-placeholder.svg` |
 
