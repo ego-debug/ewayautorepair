@@ -1498,3 +1498,13 @@ button.btn-primary:disabled {
   position: relative;
   z-index: 1;
 }
+
+/* Caption under the diagnostic panel. Makes clear the trace is one worked
+   example rather than a claim about the reader's own car. */
+.readout-note {
+  margin: 14px 2px 0;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--text-faint);
+  max-width: 46ch;
+}

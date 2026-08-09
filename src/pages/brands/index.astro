@@ -8,8 +8,8 @@ import { BRAND_PAGES } from '../../data/brands';
 const title = 'European Brands I Service in South Jersey | Eway Auto Repairs';
 const description = `BMW, Mercedes-Benz, Audi, VW, Porsche, Land Rover, Jaguar and more, serviced exclusively, at your driveway in South Jersey. 30+ years, ASE Master certified. Call ${PHONE}.`;
 
-// Phase 2 will add dedicated pages for these marques.
-const alsoServiced = ['Mini', 'Volvo', 'Saab', 'Alfa Romeo', 'Fiat'];
+// Saab is the only marque without its own page. Volume does not justify one yet.
+const alsoServiced = ['Saab'];
 ---
 
 <Page title={title} description={description} path="/brands">
@@ -38,9 +38,9 @@ const alsoServiced = ['Mini', 'Volvo', 'Saab', 'Alfa Romeo', 'Fiat'];
       </div>
 
       <h2 style="margin-top:64px" data-reveal>Also serviced</h2>
-      <p class="section-intro">
-        Same tools and the same standards. Dedicated pages for these are coming, but the work
-        is available now.
+      <p class="section-intro" data-reveal>
+        Same tools and the same standards, just not enough of them coming through to warrant
+        a page of their own.
       </p>
       <div class="town-row">
         {alsoServiced.map((b) => <span class="town-chip" data-reveal>{b}</span>)}

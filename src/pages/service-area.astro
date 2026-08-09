@@ -3,6 +3,10 @@ import Page from '../layouts/Page.astro';
 import PageIntro from '../components/PageIntro.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { PHONE, TEL_HREF, TOWNS } from '../data/site';
+import { TOWN_PAGES } from '../data/towns';
+
+// Towns with their own page link through. The rest stay as plain chips.
+const townHref = new Map(TOWN_PAGES.map((t) => [t.name, `/european-auto-repair/${t.slug}`]));
 
 const title = 'Service Area for Mobile European Auto Repair | Eway Auto Repairs';
 const description = `Mobile European car repair across Camden, Burlington and Gloucester counties: Cherry Hill, Marlton, Moorestown, Voorhees, Medford, Mount Laurel and more. I come to you. Call ${PHONE}.`;
@@ -27,7 +31,41 @@ const description = `Mobile European car repair across Camden, Burlington and Gl
         hard boundary.
       </p>
       <div class="town-row">
-        {TOWNS.map((t) => <span class="town-chip" data-reveal>{t}</span>)}
+        {
+          TOWNS.map((t) =>
+            townHref.has(t) ? (
+              <a class="town-chip" href={townHref.get(t)} data-tile>
+                {t}
+              </a>
+            ) : (
+              <span class="town-chip" data-tile>
+                {t}
+              </span>
+            )
+          )
+        }
+      </div>
+
+      <h2 style="margin-top:64px" data-reveal>Town by town</h2>
+      <div class="rule" data-rule></div>
+      <p class="section-intro" data-reveal>
+        Each of these has its own quirks, from the dealership density in Cherry Hill to the
+        long driveways out in Medford. Here is what the work usually looks like in each.
+      </p>
+      <div class="failure-list">
+        {
+          TOWN_PAGES.map((t) => (
+            <a
+              class="failure-item"
+              href={`/european-auto-repair/${t.slug}`}
+              data-reveal
+              style="display:block"
+            >
+              <h3 style="color:var(--accent)">{t.name}, NJ</h3>
+              <p>{t.intro}</p>
+            </a>
+          ))
+        }
       </div>
 
       <div class="copy" style="margin-top:56px">

@@ -314,4 +314,166 @@ export const BRAND_PAGES: BrandPage[] = [
       'JLR dealer visits are famous for four-figure invoices and a loaner you keep for a week. Most of what these vehicles need is methodical diagnosis and maintenance that actually gets done, at your driveway, with the estimate in writing first.',
     ],
   },
+  {
+    slug: 'volvo',
+    name: 'Volvo',
+    shortName: 'Volvo',
+    metaTitle: 'Volvo Repair & Service in South Jersey | Eway Auto Repairs',
+    metaDescription:
+      'Mobile Volvo specialist serving South Jersey. 30+ years, ASE Master certified. PCV, angle gear, transmission service and diagnostics at your driveway.',
+    h1: 'Volvo Repair and Service in South Jersey',
+    intro:
+      'Volvos are built to run a very long time, and the ones that get there are the ones whose owners stayed ahead of a short, well known list.',
+    opening: [
+      'Volvo owners tend to keep their cars, which suits me. These are genuinely durable vehicles and the failures are predictable enough that you can plan around almost all of them.',
+      'The five-cylinder engines in particular will go a very long way. What kills them early is nearly always deferred maintenance rather than a design problem.',
+    ],
+    failuresHeading: 'Common problems I see on Volvo',
+    failures: [
+      {
+        title: 'PCV system and oil trap',
+        body: 'The classic five-cylinder complaint. As the oil trap clogs, crankcase pressure builds and starts pushing oil past seals. The cheap test is a glove over the oil filler neck: if it gets sucked flat, the system is breathing properly, and if it balloons you have a problem. Fixing this early prevents a string of leaks that each look like their own repair.',
+      },
+      {
+        title: 'Angle gear on all-wheel-drive models',
+        body: 'The angle gear on XC70 and XC90 AWD cars runs a small amount of fluid and gets ignored completely. Servicing it is inexpensive. Replacing it after the collar wears is not.',
+      },
+      {
+        title: 'Transmission fluid on the TF-80SC',
+        body: 'Another gearbox labeled as filled for life that very much is not. A service somewhere around 60 to 80 thousand miles is the difference between a Volvo that shifts smoothly at 200,000 and one that gets replaced at 120.',
+      },
+      {
+        title: 'Timing belt intervals on the five-cylinder',
+        body: 'These are due by age as much as mileage, and the tensioner and water pump belong in the same job. A belt is a service. A belt that lets go is an engine.',
+      },
+      {
+        title: 'Electronic throttle module on older cars',
+        body: 'On the earlier drive-by-wire cars this causes limp mode and erratic idle, and it gets misdiagnosed constantly. Many are repairable rather than replaceable.',
+      },
+    ],
+    services: [
+      'Volvo diagnostics with full module access',
+      'PCV and oil trap replacement',
+      'Angle gear and AWD driveline servicing',
+      'Transmission fluid and filter service',
+      'Timing belt, tensioner, and water pump packages',
+      'Brakes, suspension, and cooling system repair',
+      'Pre-purchase inspections on any Volvo',
+    ],
+    maintenance: [
+      'Do the PCV before it causes leaks rather than after. Once crankcase pressure has pushed out the rear main seal you are paying for the seal and the labor to reach it, and both of those cost more than the part that caused it.',
+      'The AWD driveline has three separate fluids that almost nobody services. Doing all three at once is a cheap afternoon that adds years.',
+    ],
+    independent: [
+      'Volvo dealers are thin on the ground in South Jersey, so a lot of these cars end up at general shops that treat them like any other car. They are not. Correct fluids and the platform specific items above are most of what keeps them going, and I will do them at your house.',
+    ],
+  },
+  {
+    slug: 'mini',
+    name: 'Mini',
+    shortName: 'Mini',
+    metaTitle: 'Mini Cooper Repair & Service in South Jersey | Eway Auto Repairs',
+    metaDescription:
+      'Mobile Mini Cooper specialist serving South Jersey. 30+ years, ASE Master certified. Timing chain, carbon cleaning, cooling system and diagnostics at your driveway.',
+    h1: 'Mini Cooper Repair and Service in South Jersey',
+    intro:
+      'Minis are BMWs underneath, and they fail like BMWs. The good news is that means the fixes are well understood.',
+    opening: [
+      'People are often surprised how much work a Mini needs compared to the small car they replaced. It helps to think of it as a small BMW rather than an economy car, because mechanically that is what it is.',
+      'Nearly everything expensive on these has an early warning, and the owners who listen for it spend a fraction of what the ones who do not spend.',
+    ],
+    failuresHeading: 'Common problems I see on Mini',
+    failures: [
+      {
+        title: 'N14 and N18 timing chain tensioner',
+        body: 'The rattle on a cold start that owners call the death rattle. It is the chain tensioner, it is well documented, and it does not fix itself. Caught at the noise stage it is a chain and tensioner job. Ignored, the chain skips and you are into the head.',
+      },
+      {
+        title: 'Carbon buildup on the turbo engines',
+        body: 'Direct injection again, same as VW and Audi. Rough cold running and a car that has quietly lost its punch. Walnut blasting sorts it and it is normal maintenance on this engine, not a fault.',
+      },
+      {
+        title: 'Thermostat housing and water pump',
+        body: 'The plastic housings crack and weep. Coolant smell, low reservoir, sometimes an overheat with very little warning. On a higher mileage Mini I would rather do the housing, pump, and thermostat as one job than three separate visits.',
+      },
+      {
+        title: 'Oil leaks from the valve cover and oil filter housing',
+        body: 'Both are gasket jobs and both get put off. Oil onto a hot exhaust is a smell first and a fire risk later.',
+      },
+      {
+        title: 'Power steering pump on the supercharged R53',
+        body: 'On the earlier supercharged cars the electric pump fails and the fan that cools it fails first. Worth checking on any R53 you are thinking of buying.',
+      },
+    ],
+    services: [
+      'Mini diagnostics using BMW group software',
+      'Timing chain and tensioner replacement',
+      'Carbon cleaning on turbo direct-injection engines',
+      'Cooling system overhauls',
+      'Oil leak diagnosis and gasket repair',
+      'Clutch and transmission service',
+      'Pre-purchase inspections on any Mini',
+    ],
+    maintenance: [
+      'If a Mini rattles for a second on a cold start, treat that as an appointment rather than a quirk. It is the single most useful early warning on the car.',
+      'Automatic transmission fluid is not lifetime here either. A service in the 60 to 70 thousand range is money well spent.',
+    ],
+    independent: [
+      'Minis get taken to general shops because they look like small cars, and then they get diagnosed like small cars. Running BMW group software and knowing the platform is most of the job, and it is the difference between a tensioner and an engine.',
+    ],
+  },
+  {
+    slug: 'alfa-romeo-fiat',
+    name: 'Alfa Romeo & Fiat',
+    shortName: 'Alfa/Fiat',
+    metaTitle: 'Alfa Romeo & Fiat Repair in South Jersey | Eway Auto Repairs',
+    metaDescription:
+      'Mobile Alfa Romeo and Fiat specialist serving South Jersey. 30+ years, ASE Master certified. MultiAir, clutch actuator and electronics diagnosis at your driveway.',
+    h1: 'Alfa Romeo and Fiat Repair in South Jersey',
+    intro:
+      'There are not many people around here who will take these on, which is most of the reason I do.',
+    opening: [
+      'Alfa and Fiat owners have a harder time than most finding somebody willing to work on the car. Dealers are scarce in South Jersey and plenty of independents will not touch them, so these cars often arrive at my van having already been turned away somewhere.',
+      'They are not mysterious. They have a specific list of problems like every other marque, and the parts are available. What they need is somebody who has seen them before and is not guessing.',
+    ],
+    failuresHeading: 'Common problems I see on Alfa Romeo and Fiat',
+    failures: [
+      {
+        title: 'MultiAir brick on the 1.4 turbo',
+        body: 'The MultiAir unit sits on top of the engine and runs the intake valves hydraulically. When it fails you get a check engine light, rough running, and a car that will barely pull. It is a known failure, it is expensive, and clean oil on a sensible interval is genuinely the best defense against it.',
+      },
+      {
+        title: 'Clutch actuator on the Fiat 500 automated manual',
+        body: 'The Dualogic gearbox is a manual with a robot working the clutch, and the actuator is the part that fails. Harsh engagement, slipping, or a car that will not select a gear. It is repairable and it does not mean the transmission is gone.',
+      },
+      {
+        title: 'Electronics and software on the Giulia and Stelvio',
+        body: 'A lot of what gets reported as a fault on the newer Alfas is a module that needs updating or reprogramming rather than replacing. This is where having proper scan capability saves people the most money.',
+      },
+      {
+        title: 'Timing belts on the older engines',
+        body: 'Due by time as well as mileage, and these are interference engines. On an older Alfa this is the maintenance item I ask about first.',
+      },
+      {
+        title: 'Corrosion and water ingress',
+        body: 'Worth a proper look underneath on anything older, particularly around the subframe and the rear arches. Salt on South Jersey roads in winter finds every weak spot.',
+      },
+    ],
+    services: [
+      'Alfa and Fiat diagnostics with full module access',
+      'MultiAir diagnosis and replacement',
+      'Dualogic clutch actuator repair and calibration',
+      'Timing belt, tensioner, and water pump service',
+      'Oil services with the correct specification oil',
+      'Brakes, suspension, and cooling system work',
+      'Pre-purchase inspections, which matter a great deal on these',
+    ],
+    maintenance: [
+      'On the 1.4 MultiAir engine, oil quality and interval are not a suggestion. The unit is fed by engine oil and it is the most expensive thing on the car, so short intervals with the correct oil are cheap insurance.',
+      'If you are shopping for one of these, an inspection beforehand is worth more than on almost any other marque, simply because a neglected example gets expensive very quickly.',
+    ],
+    independent: [
+      'The nearest dealer is a drive and a wait, and plenty of shops will turn the car away at the door. I will not. You get somebody who knows the MultiAir and the Dualogic before the hood is open, at your house, with the estimate in writing first.',
+    ],
+  },
 ];

@@ -1,0 +1,84 @@
+---
+import Page from '../../layouts/Page.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { PHONE } from '../../data/site';
+import { TOWN_PAGES } from '../../data/towns';
+import { serviceSchema, breadcrumbSchema } from '../../data/schema';
+
+export function getStaticPaths() {
+  return TOWN_PAGES.map((town) => ({ params: { town: town.slug }, props: { town } }));
+}
+
+const { town } = Astro.props;
+const path = `/european-auto-repair/${town.slug}`;
+
+const schemas = [
+  serviceSchema(
+    `European Auto Repair in ${town.name}, NJ`,
+    `Mobile European auto diagnostics, maintenance and repair in ${town.name}, ${town.county}, New Jersey.`,
+    path
+  ),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Service Area', path: '/service-area' },
+    { name: town.name, path },
+  ]),
+];
+---
+
+<Page title={town.metaTitle} description={town.metaDescription} path={path} schemas={schemas}>
+  <PageIntro
+    eyebrow={`${town.county} · Mobile Service`}
+    crumbs={[
+      { name: 'Home', href: '/' },
+      { name: 'Service Area', href: '/service-area' },
+      { name: town.name, href: path },
+    ]}
+  >
+    <Fragment slot="title">{town.h1}</Fragment>
+    <Fragment slot="intro">{town.intro}</Fragment>
+  </PageIntro>
+
+  <section class="section-ruled">
+    <div class="section container">
+      <div class="copy">
+        {town.body.map((p) => <p>{p}</p>)}
+      </div>
+
+      <h2 style="margin-top:56px" data-reveal>What I get called for most in {town.name}</h2>
+      <div class="rule" data-rule></div>
+      <div class="failure-list">
+        {
+          town.workHere.map((w) => (
+            <div class="failure-item" data-reveal>
+              <h3>{w.title}</h3>
+              <p>{w.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 style="margin-top:64px" data-reveal>Also nearby</h2>
+      <p class="section-intro" data-reveal>
+        I am in {town.name} regularly, and these are the next stops either side of it. If your
+        town is not here, call and ask.
+      </p>
+      <div class="town-row">
+        {town.nearby.map((n) => <span class="town-chip" data-tile>{n}</span>)}
+      </div>
+
+      <div class="next-links">
+        <a class="chip-link" href="/services">Everything I do</a>
+        <a class="chip-link" href="/pre-purchase-inspection">Pre-purchase inspections</a>
+        <a class="chip-link" href="/brands">Failure points by marque</a>
+        <a class="chip-link" href="/service-area">Full service area</a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title={`Car trouble in ${town.name}?`}
+    sub={`Call ${PHONE} with the year, model and what it is doing, and I will tell you what I think before I drive out.`}
+  />
+</Page>

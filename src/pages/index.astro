@@ -31,6 +31,9 @@ const brandHrefs = new Map(
     if (b.slug === 'land-rover-jaguar') {
       return [['Land Rover', '/brands/land-rover-jaguar'], ['Jaguar', '/brands/land-rover-jaguar']];
     }
+    if (b.slug === 'alfa-romeo-fiat') {
+      return [['Alfa Romeo', '/brands/alfa-romeo-fiat'], ['Fiat', '/brands/alfa-romeo-fiat']];
+    }
     return [[b.name, `/brands/${b.slug}`]];
   })
 );
