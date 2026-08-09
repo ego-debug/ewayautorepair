@@ -88,12 +88,23 @@ That is everything he has to be present for. The rest is yours.
 
 ## Two things worth knowing
 
-**Vercel's free tier is for personal, non-commercial projects.** A business website
-technically belongs on their paid plan at $20/month. Plenty of small sites run on the
-free tier anyway and nothing happens, but it is a rule that exists and you should know
-it exists rather than find out later. Cloudflare Pages is free with no such
-restriction and the site would move there in about twenty minutes if you would rather
-not think about it. The original brief actually suggested Cloudflare for this reason.
+**Vercel's free tier is for personal, non-commercial projects.** Their own docs say
+the Hobby plan "restricts users to non-commercial, personal use only", so a business
+website belongs on the Pro plan at $20 a month.
+
+This is a real rule but not an emergency. Nothing gets switched off overnight and
+enforcement on a small business site is rare. Three ways to deal with it, in order of
+how little work they are:
+
+1. Stay on Hobby for now. It works. Revisit once the site is actually bringing in
+   jobs. Technically against their terms.
+2. Pay for Pro. Twenty dollars a month, roughly a tenth of one oil change, and the
+   question goes away.
+3. Move to Cloudflare Pages, which is free and has no commercial restriction. About
+   an hour of work, because the contact form endpoint would need swapping to their
+   runtime and retesting.
+
+Do not decide this now. The domain is not even registered. Get it live first.
 
 **Write the passwords down.** A 30-year mechanic is not going to remember which email
 he used for the Google listing eighteen months from now, and that is exactly the
