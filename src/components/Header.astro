@@ -11,6 +11,7 @@ const NAV = [
 ];
 
 const here = Astro.url.pathname.replace(/\/$/, '') || '/';
+const current = (href: string) => here === href || here.startsWith(`${href}/`);
 ---
 
 <header class="site-header" id="site-header">
@@ -19,38 +20,98 @@ const here = Astro.url.pathname.replace(/\/$/, '') || '/';
       <span class="mark">EWAY AUTO REPAIRS</span>
       <span class="tagline desktop-only">EUROPEAN SPECIALIST</span>
     </a>
+
     <nav class="site-nav desktop-only" aria-label="Main">
       {
         NAV.map((item) => (
-          <a
-            href={item.href}
-            aria-current={here === item.href || here.startsWith(`${item.href}/`) ? 'page' : undefined}
-          >
+          <a href={item.href} aria-current={current(item.href) ? 'page' : undefined}>
             {item.label}
           </a>
         ))
       }
     </nav>
-    <a href={TEL_HREF} class="btn-call">Call {PHONE}</a>
+
+    <a href={TEL_HREF} class="btn-call desktop-only">Call {PHONE}</a>
+
+    <button
+      type="button"
+      class="menu-btn mobile-only"
+      id="menu-btn"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open menu"
+    >
+      <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
   </div>
   <div class="scroll-progress" data-progress></div>
 </header>
 
+<div class="mobile-menu" id="mobile-menu" hidden>
+  <nav aria-label="Main menu">
+    {
+      NAV.map((item) => (
+        <a href={item.href} aria-current={current(item.href) ? 'page' : undefined}>
+          {item.label}
+        </a>
+      ))
+    }
+  </nav>
+  <a href={TEL_HREF} class="btn-primary menu-call">Call {PHONE}</a>
+  <p class="menu-note">Written estimate before any work starts.</p>
+</div>
+
 <script>
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('mobile-menu');
+
+  if (btn && menu) {
+    const setOpen = (open: boolean) => {
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      btn.classList.toggle('is-open', open);
+      menu.classList.toggle('is-open', open);
+      document.body.classList.toggle('menu-open', open);
+      if (open) {
+        menu.hidden = false;
+        menu.querySelector('a')?.focus();
+      } else {
+        // Wait for the transition before hiding, so it animates out.
+        setTimeout(() => {
+          if (btn.getAttribute('aria-expanded') === 'false') menu.hidden = true;
+        }, 220);
+        btn.focus();
+      }
+    };
+
+    btn.addEventListener('click', () => setOpen(btn.getAttribute('aria-expanded') !== 'true'));
+
+    menu.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) setOpen(false);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') setOpen(false);
+    });
+
+    // If the viewport grows past the breakpoint while open, drop back to the bar.
+    window.matchMedia('(min-width: 941px)').addEventListener('change', (e) => {
+      if (e.matches && btn.getAttribute('aria-expanded') === 'true') setOpen(false);
+    });
+  }
+
   // The wordmark links to "/" so it works everywhere, including without script.
   // But clicking it while already on the homepage would just re-request the same
   // page and leave you where you were scrolled, which reads as a dead link.
-  // When we are already home, scroll to the top instead.
   const wordmark = document.querySelector<HTMLAnchorElement>('.wordmark');
 
   wordmark?.addEventListener('click', (event) => {
-    const here = location.pathname.replace(/index\.html$/, '').replace(/(.)\/$/, '$1');
-    if (here !== '/' && here !== '') return;
+    const path = location.pathname.replace(/index\.html$/, '').replace(/(.)\/$/, '$1');
+    if (path !== '/' && path !== '') return;
 
     event.preventDefault();
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
-    // Drop the hash so the URL matches what is on screen.
     if (location.hash) history.replaceState(null, '', location.pathname);
   });
 </script>

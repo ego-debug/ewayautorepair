@@ -1516,3 +1516,115 @@ button.btn-primary:disabled {
   color: var(--text-faint);
   max-width: 46ch;
 }
+
+/* ---------- Mobile menu ----------
+   Below 940px the desktop nav is hidden, so this is the only way to reach the
+   rest of the site. The header call button drops out on mobile because the
+   sticky bottom bar already covers tap-to-call, which frees the space. */
+.menu-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--border-chip);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+.menu-btn:hover,
+.menu-btn:focus-visible {
+  border-color: var(--accent);
+}
+.menu-btn .bars {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 20px;
+  height: 14px;
+}
+.menu-btn .bars i {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: var(--accent);
+  transition: transform 0.22s ease, opacity 0.18s ease;
+}
+.menu-btn.is-open .bars i:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+.menu-btn.is-open .bars i:nth-child(2) {
+  opacity: 0;
+}
+.menu-btn.is-open .bars i:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  background: rgba(10, 10, 10, 0.98);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 96px 20px 40px;
+  overflow-y: auto;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.mobile-menu.is-open {
+  opacity: 1;
+  transform: none;
+}
+.mobile-menu[hidden] {
+  display: none;
+}
+.mobile-menu nav {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--border);
+}
+.mobile-menu nav a {
+  padding: 20px 2px;
+  border-bottom: 1px solid var(--border);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  transition: color 0.18s ease, padding-left 0.18s ease;
+}
+.mobile-menu nav a:hover,
+.mobile-menu nav a:focus-visible {
+  color: var(--accent);
+  padding-left: 10px;
+}
+.mobile-menu nav a[aria-current='page'] {
+  color: var(--accent);
+}
+.menu-call {
+  display: block;
+  margin-top: 28px;
+  text-align: center;
+  font-size: 18px;
+}
+.menu-note {
+  margin: 16px 0 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-faint);
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-menu {
+    transition: none;
+  }
+}

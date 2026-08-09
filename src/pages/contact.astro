@@ -118,6 +118,16 @@ const description = `Reach the technician directly. Call ${PHONE} or send the ye
       if (!form.reportValidity() || !status) return;
 
       const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+      // The form endpoint needs a real Web3Forms key. Until one is set, say so
+      // plainly and point at the phone rather than letting the POST fail silently.
+      const key = form.querySelector<HTMLInputElement>('input[name="access_key"]')?.value ?? '';
+      if (key.startsWith('[')) {
+        status.className = 'form-status err';
+        status.innerHTML = `This form is not connected yet. Call or text <a href="${form.dataset.tel}">${form.dataset.phone}</a> and you will get a straight answer faster anyway.`;
+        return;
+      }
+
       btn.disabled = true;
       status.className = 'form-status';
       status.textContent = 'Sending…';
