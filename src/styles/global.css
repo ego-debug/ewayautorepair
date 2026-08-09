@@ -96,6 +96,14 @@ a:hover {
   flex-direction: column;
   gap: 2px;
   color: var(--accent);
+  transition: opacity 0.18s ease;
+}
+.wordmark:hover {
+  color: var(--accent);
+  opacity: 0.78;
+}
+.wordmark:hover .tagline {
+  color: var(--text-2);
 }
 .wordmark .mark {
   font-size: 17px;
