@@ -1,8 +1,12 @@
 # Photo shot list
 
-Every image the site needs, in priority order. Right now all of them are dark
-placeholder graphics, and they are the single biggest thing holding the site back
-from looking like a real business.
+Every image the site needs, in priority order.
+
+**Current state:** all four slots are filled with AI-generated stand-ins that match the
+art direction, so the site no longer looks unfinished. Those are a floor, not a
+ceiling. Real photos of real jobs on real cars will beat them, and a customer shopping
+for a European specialist is exactly the person who can tell the difference. Replace
+them one at a time as the shots below get taken.
 
 **Two rules that matter more than any technical note below.**
 

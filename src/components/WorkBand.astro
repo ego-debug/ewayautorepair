@@ -9,17 +9,15 @@ interface Props {
 const {
   eyebrow = 'On Site',
   quote,
-  // PLACEHOLDER image. Replace with a wide shot of him working on a car in a
-  // driveway with the tools out.
-  src = '/images/workband-placeholder.svg',
-  alt = '',
+  src = '/images/driveway.webp',
+  alt = 'A car with the hood up in a residential driveway, work lamp and tools out',
 } = Astro.props;
 ---
 
 <section class="work-band">
   <div class="band-parallax" data-parallax data-parallax-rate="0.18">
     <div data-kb>
-      <img src={src} alt={alt} loading="lazy" width="2000" height="900" />
+      <img src={src} alt={alt} loading="lazy" decoding="async" width="1916" height="821" />
     </div>
   </div>
   <div class="band-scrim"></div>

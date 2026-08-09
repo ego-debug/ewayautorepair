@@ -47,15 +47,14 @@ const serviceHref = (s: (typeof SERVICES)[number]) =>
   <section id="top" class="hero">
     <div class="hero-parallax" data-parallax>
       <div data-kb>
-        <!-- PLACEHOLDER image. Replace with a real dark engine-bay or scan-tool photo,
-             landscape, at least 2000px wide, as an AVIF/WebP picture element. -->
         <img
-          src="/images/hero-placeholder.svg"
+          src="/images/hero.webp"
           alt=""
           loading="eager"
           fetchpriority="high"
-          width="2000"
-          height="1200"
+          decoding="async"
+          width="1536"
+          height="1024"
         />
       </div>
     </div>
@@ -187,11 +186,11 @@ const serviceHref = (s: (typeof SERVICES)[number]) =>
           wasn't on the estimate. <a href="/about">More about me</a>.
         </p>
         <MediaFrame
-          src="/images/portrait-placeholder.svg"
+          src="/images/craft.webp"
           shape="portrait"
-          width={800}
-          height={1000}
-          alt=""
+          width={682}
+          height={1024}
+          alt="Gloved hands torquing a fastener on an engine under a work lamp"
         />
       </div>
       <div class="credential-list">
@@ -221,7 +220,14 @@ const serviceHref = (s: (typeof SERVICES)[number]) =>
       <div class="town-row">
         {TOWNS.map((t) => <span class="town-chip" data-tile>{t}</span>)}
       </div>
-      <MediaFrame src="/images/van-placeholder.svg" shape="wide" width={1600} height={600} alt="" />
+      <MediaFrame
+        src="/images/van.webp"
+        shape="wide"
+        width={1254}
+        height={1254}
+        focus="center 70%"
+        alt="Service van with the rear doors open, shelved with tool cases"
+      />
     </div>
   </section>
 

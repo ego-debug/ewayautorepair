@@ -5,13 +5,23 @@ interface Props {
   shape?: 'portrait' | 'wide';
   width?: number;
   height?: number;
+  /** Bias the cover crop, e.g. "center 68%" to favour the lower part of a tall source. */
+  focus?: string;
 }
 
-const { src, alt = '', shape = 'wide', width = 1600, height = 600 } = Astro.props;
+const { src, alt = '', shape = 'wide', width = 1600, height = 600, focus } = Astro.props;
 ---
 
 <div class:list={['media-frame', shape === 'portrait' ? 'media-portrait' : 'media-wide']} data-reveal>
   <div data-kb>
-    <img src={src} alt={alt} loading="lazy" width={width} height={height} />
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      decoding="async"
+      width={width}
+      height={height}
+      style={focus ? `object-position:${focus}` : undefined}
+    />
   </div>
 </div>
