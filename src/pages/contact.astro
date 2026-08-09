@@ -1,57 +1,48 @@
 ---
 import Page from '../layouts/Page.astro';
 import PageIntro from '../components/PageIntro.astro';
-import { PHONE, TEL_HREF, WEB3FORMS_KEY } from '../data/site';
+import { PHONE, TEL_HREF } from '../data/site';
 
 const title = 'Contact and Quote Requests | Eway Auto Repairs';
-const description = `Reach the technician directly. Call ${PHONE} or send the year, model, and symptoms. You get a written estimate before any work starts. Mobile European auto repair, South Jersey.`;
+const description = `Send the year, model and symptoms and get a written estimate before any work starts. Or call ${PHONE}. Mobile European auto repair, South Jersey.`;
 ---
 
 <Page title={title} description={description} path="/contact">
   <PageIntro eyebrow="Contact">
-    <Fragment slot="title">Talk to the <span class="accent">technician</span>.</Fragment>
+    <Fragment slot="title">Tell me what it's <span class="accent">doing</span>.</Fragment>
     <Fragment slot="intro">
-      No service writer, no phone tree. Tell me what the car is doing and I'll tell you what
-      it probably is and what it costs to find out for certain.
+      Send the details and I will come back to you with what I think it is and what it
+      costs to find out for certain. I am usually under a car during the day, so this
+      reaches me more reliably than a missed call.
     </Fragment>
   </PageIntro>
 
   <section class="section-ruled">
     <div class="section container">
-      <div class="phone-first" data-reveal>
-        The fastest way to reach us is a phone call:
-        <a href={TEL_HREF}>{PHONE}</a>
-      </div>
-
-      <h2 style="margin-top:56px" data-reveal>Or send the details</h2>
-      <p class="section-intro">
-        Most problems narrow down fast once I have the year, the model, and a plain
-        description of what it's doing.
-      </p>
-
       <form
         id="quote-form"
         class="contact-form"
         method="POST"
-        action="https://api.web3forms.com/submit"
+        action="/api/quote"
         data-tel={TEL_HREF}
         data-phone={PHONE}
         novalidate
       >
-        <!-- PLACEHOLDER: create a free Web3Forms access key for service@ewayautorepairs.com
-             and set WEB3FORMS_KEY in src/data/site.ts. Submissions email to that address;
-             enable Web3Forms' SMS/forward options so he actually sees them under a car. -->
-        <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
-        <input type="hidden" name="subject" value="Quote request from ewayautorepairs.com" />
-        <input type="hidden" name="from_name" value="Eway Auto Repairs website" />
-        <!-- Honeypot: real users never see or fill this. -->
-        <input
-          type="checkbox"
-          name="botcheck"
-          class="hp-field"
-          tabindex="-1"
-          autocomplete="off"
-        />
+        <!-- Honeypot. Positioned off-screen, so only a bot fills it. -->
+        <div class="hp-field" aria-hidden="true">
+          <label for="f-company">Company</label>
+          <input id="f-company" name="company" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+        <input type="hidden" name="started_at" id="started-at" value="" />
+
+        <div class="form-field wide">
+          <label for="f-urgency">How urgent is it? <span class="req">*</span></label>
+          <select id="f-urgency" name="urgency" required>
+            <option value="soon">It drives, but it needs looking at</option>
+            <option value="undriveable">The car is not driveable right now</option>
+            <option value="planning">Planning ahead, or a pre-purchase inspection</option>
+          </select>
+        </div>
 
         <div class="form-field">
           <label for="f-name">Name <span class="req">*</span></label>
@@ -64,7 +55,18 @@ const description = `Reach the technician directly. Call ${PHONE} or send the ye
         <div class="form-field">
           <label for="f-email">Email</label>
           <input id="f-email" name="email" type="email" autocomplete="email" />
+          <span class="field-hint">Only used to send you a copy of this.</span>
         </div>
+        <div class="form-field">
+          <label for="f-contact-pref">Best way to reach you</label>
+          <select id="f-contact-pref" name="contact_pref">
+            <option value="">No preference</option>
+            <option>Call</option>
+            <option>Text</option>
+            <option>Email</option>
+          </select>
+        </div>
+
         <div class="form-field">
           <label for="f-vehicle">Year / Make / Model <span class="req">*</span></label>
           <input id="f-vehicle" name="vehicle" type="text" required placeholder="2016 BMW 340i" />
@@ -77,13 +79,15 @@ const description = `Reach the technician directly. Call ${PHONE} or send the ye
           <label for="f-town">Town <span class="req">*</span></label>
           <input id="f-town" name="town" type="text" required placeholder="Cherry Hill" />
         </div>
+
         <div class="form-field wide">
           <label for="f-symptoms">What's it doing? <span class="req">*</span></label>
           <textarea
             id="f-symptoms"
             name="symptoms"
             required
-            placeholder="Check engine light, rattle on cold start, an estimate you want a second opinion on. Plain words are fine."></textarea>
+            placeholder="Check engine light, rattle on cold start, an estimate you want a second opinion on. Plain words are fine, and the more specific the better."
+          ></textarea>
         </div>
         <div class="form-field wide">
           <label for="f-source">How'd you hear about us?</label>
@@ -106,52 +110,53 @@ const description = `Reach the technician directly. Call ${PHONE} or send the ye
         </div>
         <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
       </form>
+
+      <div class="phone-first" data-reveal style="margin-top:44px">
+        If the car is not driveable, or it is genuinely urgent, skip the form and call
+        <a href={TEL_HREF}>{PHONE}</a>. If I don't pick up I am under a car, so leave a
+        message or send a text and I will get straight back to you.
+      </div>
     </div>
   </section>
 
   <script>
     const form = document.getElementById('quote-form') as HTMLFormElement | null;
     const status = document.getElementById('form-status');
+    const startedAt = document.getElementById('started-at') as HTMLInputElement | null;
 
-    form?.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      if (!form.reportValidity() || !status) return;
+    // Stamped on load, checked server-side. Instant submissions are bots.
+    if (startedAt) startedAt.value = String(Date.now());
 
-      const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    form?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!status || !form.reportValidity()) return;
 
-      // The form endpoint needs a real Web3Forms key. Until one is set, say so
-      // plainly and point at the phone rather than letting the POST fail silently.
-      const key = form.querySelector<HTMLInputElement>('input[name="access_key"]')?.value ?? '';
-      if (key.startsWith('[')) {
-        status.className = 'form-status err';
-        status.innerHTML = `This form is not connected yet. Call or text <a href="${form.dataset.tel}">${form.dataset.phone}</a> and you will get a straight answer faster anyway.`;
-        return;
-      }
-
-      btn.disabled = true;
+      const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+      button.disabled = true;
       status.className = 'form-status';
       status.textContent = 'Sending…';
 
       try {
-        const res = await fetch(form.action, {
+        const response = await fetch(form.action, {
           method: 'POST',
           body: new FormData(form),
           headers: { Accept: 'application/json' },
         });
-        const data = await res.json();
-        if (data.success) {
-          form.reset();
+        const data = await response.json().catch(() => ({}));
+
+        if (response.ok && data.ok) {
+          form.hidden = true;
           status.className = 'form-status ok';
-          status.textContent =
-            "Got it. I'll get back to you as soon as I'm out from under a car, usually the same day.";
-        } else {
-          throw new Error(data.message || 'Submission failed');
+          status.innerHTML =
+            "<strong>Got it.</strong> I'll come back to you as soon as I'm out from under a car, usually the same day. If you left an email address there is a copy of this in your inbox.";
+          status.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
         }
-      } catch {
+        throw new Error(data.error || 'That did not send.');
+      } catch (error) {
         status.className = 'form-status err';
-        status.innerHTML = `That didn't send. Call or text instead: <a href="${form.dataset.tel}">${form.dataset.phone}</a>`;
-      } finally {
-        btn.disabled = false;
+        status.innerHTML = `${(error as Error).message} Call or text instead: <a href="${form.dataset.tel}">${form.dataset.phone}</a>`;
+        button.disabled = false;
       }
     });
   </script>

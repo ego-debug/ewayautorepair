@@ -11,10 +11,11 @@
 import { readdirSync, readFileSync, existsSync, statSync } from 'fs';
 import { join } from 'path';
 
-const DIST = 'dist';
+// The Vercel adapter emits pages to dist/client. Plain static builds use dist.
+const DIST = existsSync('dist/client') ? 'dist/client' : 'dist';
 
 if (!existsSync(DIST)) {
-  console.error('No dist/ directory. Run `npm run build` first.');
+  console.error('No build output found. Run `npm run build` first.');
   process.exit(1);
 }
 
@@ -28,7 +29,7 @@ const pages = [];
 })(DIST);
 
 const urlOf = (file) =>
-  '/' + file.replace(/^dist\//, '').replace(/index\.html$/, '').replace(/\/$/, '');
+  '/' + file.replace(DIST + '/', '').replace(/index\.html$/, '').replace(/\/$/, '');
 
 // Inline scripts contain template literals that look like markup. Strip them
 // before scanning, or every `<a href="${...}">` inside JS reads as a broken link.

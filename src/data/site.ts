@@ -6,10 +6,6 @@
 export const PHONE = '(856) 555-0142';
 export const TEL_HREF = 'tel:' + PHONE.replace(/[^0-9+]/g, '');
 
-// PLACEHOLDER: create a free access key at web3forms.com pointed at the
-// business email, then paste it here. The contact form will not send until set.
-export const WEB3FORMS_KEY = '[WEB3FORMS_ACCESS_KEY]';
-
 export const NAME = 'Eway Auto Repairs';
 export const TAGLINE = 'European Specialist';
 export const DOMAIN = 'https://ewayautorepairs.com';
