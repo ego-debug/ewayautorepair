@@ -135,13 +135,15 @@ without. This is the cheapest marketing available and it costs about a minute a 
 
 ## Where each one lands in the code
 
-| Photo | File to replace |
-|---|---|
-| Hero background | `public/images/hero-placeholder.svg` |
-| Vertical craft shot | `public/images/portrait-placeholder.svg` |
-| Driveway shot | `public/images/workband-placeholder.svg` |
-| The van | `public/images/van-placeholder.svg` |
+| Photo | File it replaces | Best source size |
+|---|---|---|
+| Hero background | `public/images/hero.webp` | 2000px wide or more, landscape |
+| Vertical craft shot | `public/images/craft.webp` | portrait, roughly 4:5 |
+| Driveway shot | `public/images/driveway.webp` | 2000px wide or more, wide landscape |
+| The van | `public/images/van.webp` | landscape or square |
+| Social share card | `public/images/og.jpg` | exactly 1200x630 |
 
-Save the real files as `.webp` or `.jpg` and update the `src` attributes that point at
-them. Also add a social sharing image at `public/images/og.jpg`, 1200x630, which is
-what shows up when the site gets shared in a text message or on Facebook.
+Overwrite the file, keep the same name, and nothing else needs changing. If the aspect
+ratio of a replacement differs a lot from what is there now, update the `width` and
+`height` attributes on the matching `<img>` so the browser reserves the right space and
+the page does not jump while loading.
